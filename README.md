@@ -5,7 +5,7 @@
 *On load, the user should:*
 - See a grid of photo thumbnails
 - When a thumbnail is clicked, the photo should be displayed in a lightbox view
-- Have the ability to move to the next / previous photos and display the photo title 
+- Have the ability to move to the next / previous photos and display the photo title (lightbox view)
 - Be able to select photos from a carousel while in the lightbox view
 
 *Backlog:*
