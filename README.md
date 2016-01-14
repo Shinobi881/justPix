@@ -1,5 +1,5 @@
 # justPix
-*Search for and filter picture from Flickr, Google and Instagram.*
+*Search for and filter pictures from Flickr, Google and Instagram.*
 
 ###User Story
 *On load, the user should:*
