@@ -1,3 +1,4 @@
+// Webpack config
 module.exports = {
     entry: "./app/app.js",
     output: {

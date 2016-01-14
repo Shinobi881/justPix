@@ -128,6 +128,8 @@ you get here again and nothing is broken and all the tests pass.
 
 [Closing issues via pull requests](https://help.github.com/articles/closing-issues-via-commit-messages/)
 
+[Open issues](https://github.com/Shinobi881/justPix/issues)
+
 Make a clear pull request from your fork and branch to the upstream master
 branch, detailing exactly what changes you made and what feature this
 should add. The clearer your pull request is the faster you can get

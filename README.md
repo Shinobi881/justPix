@@ -24,7 +24,7 @@
 5. Open a browser window and navigate to `localhost:8080/app`
 
 #Contributing
-*Please adhere to the style and contribution guides when making pull request and be courteous and appropriate when adding issues*
+*Please adhere to the style and contribution guides when making pull request and be courteous and appropriate when adding/commenting on issues*
 1. [Contribution Guide](COTRIBUTING.md)
 2. [Style guide](STYLE-GUIDE.md)
 3. [Closing issues via coomits](https://help.github.com/articles/closing-issues-via-commit-messages/)
