@@ -44,7 +44,7 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Landing = __webpack_require__(1);
+	var landing = __webpack_require__(1);
 	var css = __webpack_require__(2);
 
 	document.write(Landing);
@@ -90,7 +90,7 @@
 
 
 	// module
-	exports.push([module.id, "\nbody {\n    background: yellow;\n}", ""]);
+	exports.push([module.id, "\nbody {\n    background: green;\n}", ""]);
 
 	// exports
 
