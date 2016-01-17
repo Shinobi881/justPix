@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/Shinobi881/justPix/issues"
   },
-  "homepage": "https://github.com/Shinobi881/justPix#readme"
+  "homepage": "https://github.com/Shinobi881/justPix#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "webpack": "^1.12.11",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-stream": "^3.1.0"
+  }
 }

@@ -19,8 +19,9 @@
 #Installation
 *Instructions for building with webpack*
 
+1. `$ npm install`
 1. `$ npm install -g webpack` 
-2. `$ npm install -dwebpack-dev-server`                
+2. `$ npm install -g webpack-dev-server`                
 4. `$ webpack-dev-server`
 5. Open a browser window and navigate to `localhost:8080/app`
 

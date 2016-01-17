@@ -1,41 +1,41 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-
+/******/
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
+/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-
+/******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
@@ -45,10 +45,9 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var landing = __webpack_require__(1);
-	var css = __webpack_require__(4);
-	var search = __webpack_require__(3);
-
-	document.write(landing);
+	var css = __webpack_require__(5)
+	
+	// document.write(landing);
 
 
 /***/ },
@@ -56,134 +55,97 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var fetch = __webpack_require__(2);
-	var search = __webpack_require__(3);
-
+	var search = __webpack_require__(4);
+	var api = __webpack_require__(3);
+	
 	// var test = "It works from ./js/home/landing.js.";
 	function test() {
-	  console.log('Search', search);
-	  return fetch.fetch();
+	  var respData = null;
+	  var flickrPhotos = [];
+	  console.log('Search', search.value);
+	  // console.log('Search', fetch;
+	  // console.log('Search' );
+	  return fetch.fetchFlickr('mount tamalpais')
+	    .then(function(data) {
+	      
+	      console.log('imageData: ', data);
+	    }, function(status) {
+	      console.log('Request error: ',status);
+	    })
 	}
 	module.exports = test();
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	// using XML to GET photos using Flickr API
-	var respData = null;
-	var flickrPhotos = [];
-
-	// TODO:
-	  // add options for user to specify how many photos would s/he like to be returned with drop down menu
-	  // add title to each photo to display in lightbox
-	  // have thumbnails section empty and repopulate when user searches new keyword (as opposed to searching a new keyword and the new thumbnails are appended to page after previous thumbnails)
-	  // combine last two promises we don't have to iterate through results twice
-	var getJSON = function(tag) {
-	  tag = tag || 'iceland';
-	  var query = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=d7b5799416ae2ea346791364f3d8bd7c&safe_search&tags=iceland&format=json&per_page=50&nojsoncallback=?"
-
-	  return new Promise(function(resolve, reject) {
-	    var xhr = new XMLHttpRequest();
-	    xhr.open('get', query, true);
-	    xhr.responseType = 'json';
-	    xhr.onload = function() {
-	      var status = xhr.status;
-	      if (status == 200) {
-	        resolve(xhr.response);
-	        
-	      } else {
-	        reject(status);
-	        
-	      }
-	    };
-	    xhr.send();
-	  }).then(function(data) {
-	    respData = data;
-	    console.log('respData: ',respData);
-	  }, function(status) {
-	    console.log('There was an error.......',status);
-	  }).then(function(){
-	    // concatenates values from each image to create the image's URL as a string
-	    // code from my previous FLickr photo project :)
-	      // https://github.com/veeweeherman/tinpurr
-	    var photosArr = respData.photos.photo;
-	    for (var i = 0; i < photosArr.length; i++) {
-	      var photoURL = "https://farm" +
-	      photosArr[i].farm +".static.flickr.com/"+
-	      photosArr[i].server +"/"+
-	      photosArr[i].id +"_"+
-	      photosArr[i].secret +".jpg";
-	      flickrPhotos.push(photoURL);
-	    }
-	  }).then(function(){
-	    var thumbnails = document.getElementById('thumbnails');
-	    var lbContainer = document.getElementById('lbContainer');
-	    for (var i = 0; i < flickrPhotos.length; i++) {
-	      // Create and display thumbnails
-	      var thumbnailAtag = document.createElement("a");
-	      thumbnailAtag.href = "#img" + (i+1);
-	      var thumbnailImage = document.createElement("img");
-	      thumbnailImage.setAttribute('class','thumbs');
-	      thumbnailImage.src = flickrPhotos[i];
-	      thumbnailAtag.appendChild(thumbnailImage);
-	      thumbnails.insertBefore(thumbnailAtag,endThumbnails);
-
-	      // Create each image that can be hidden/displayed in the lightbox
-	      var lbAtag = document.createElement("a");
-	      lbAtag.href = "#_";
-	      lbAtag.setAttribute('class','lightbox');
-	      lbAtag.id = "img" + (i+1);
-	      var image = document.createElement("img");
-	      image.setAttribute('class','currentLBphoto');
-	      image.src = flickrPhotos[i];
-	      lbAtag.appendChild(image);
-	      lbContainer.insertBefore(lbAtag,endlbContainer);
-	    }
-	  });
-	};
-
-
-
-	// TODO: add prev/next button functionality so user can go back or jump ahead to next photo
-	  // use each image's index that it is associated with in the array of all images, increment and decrement the index by click prev/next
-	var i = -1;
-	function next(){
-	    if (i >= flickrPhotos.length) {i = -1;}
-	  i += 1;
-	  console.log('incrementing',i);
-	  var url = 'url(' + flickrPhotos[i] + ')';
-	  document.getElementById('prevnext').style.backgroundImage=url;
-	 }
-
-	function prev(){
-	  if (i <= -1) {i = flickrPhotos.length;}
-	  i -= 1;
-	  console.log('decrementing',i);
-	  var url = 'url(' + flickrPhotos[i] + ')';
-	  document.getElementById('prevnext').style.backgroundImage=url;
+	var api = __webpack_require__(3);
+	
+	///////////////// MAKE SURE TO ESCAPE FOR MALICIOUS SCRIPTS /////////////////
+	
+	var ApiCall = function(source) {
+	  // console.log(source)
+	  return function(searchTag) {
+	    console.log(searchTag);
+	    var reqUrl = source.rootUrl + source.method +
+	      source.key + searchTag + source.options;
+	    console.log(reqUrl);
+	    return new Promise(function(resolve, reject) {
+	      var req = new XMLHttpRequest();
+	      req.open('get', reqUrl, true);
+	      req.responseType = 'json';
+	      req.onload = function() {
+	        var status = req.status;
+	        status === 200 ? resolve(req.response) : reject(status);
+	      };
+	      req.send();
+	    })
+	  }
 	}
-
-	module.exports = {fetch: getJSON, next: next, prev: prev};
+	
+	var fetchFlickr = new ApiCall(api.flickr);
+	
+	module.exports = {
+	  fetchFlickr: fetchFlickr,
+	  next: next, 
+	  prev: prev
+	};
 
 /***/ },
 /* 3 */
 /***/ function(module, exports) {
 
-	var search = document.getElementById('userTags');
+	var apiList = {
+	  flickr: {
+	    name: 'Flickr',
+	    rootUrl: 'https://api.flickr.com/services/rest/',
+	    method: '?method=flickr.photos.search&',
+	    key: 'api_key=d7b5799416ae2ea346791364f3d8bd7c&tags=',
+	    options: '&safe_search&format=json&per_page=100&nojsoncallback=?'
+	  }
+	}
+	
+	module.exports = apiList;
+	
 
-	module.exports = search;
 
 /***/ },
 /* 4 */
+/***/ function(module, exports) {
+
+
+
+/***/ },
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
-
+	
 	// load the styles
-	var content = __webpack_require__(5);
+	var content = __webpack_require__(6);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(7)(content, {});
+	var update = __webpack_require__(8)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -200,21 +162,21 @@
 	}
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(6)();
+	exports = module.exports = __webpack_require__(7)();
 	// imports
-
-
+	
+	
 	// module
-	exports.push([module.id, "\nbody {\n    background: green;\n}", ""]);
-
+	exports.push([module.id, "\n\n\n", ""]);
+	
 	// exports
 
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports) {
 
 	/*
@@ -224,7 +186,7 @@
 	// css base code, injected by the css-loader
 	module.exports = function() {
 		var list = [];
-
+	
 		// return the list of modules as css string
 		list.toString = function toString() {
 			var result = [];
@@ -238,7 +200,7 @@
 			}
 			return result.join("");
 		};
-
+	
 		// import a list of modules into the list
 		list.i = function(modules, mediaQuery) {
 			if(typeof modules === "string")
@@ -270,7 +232,7 @@
 
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -294,23 +256,23 @@
 		singletonElement = null,
 		singletonCounter = 0,
 		styleElementsInsertedAtTop = [];
-
+	
 	module.exports = function(list, options) {
-		if(false) {
+		if(true) {
 			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
 		}
-
+	
 		options = options || {};
 		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
 		// tags it will allow on a page
 		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
-
+	
 		// By default, add <style> tags to the bottom of <head>.
 		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
-
+	
 		var styles = listToStyles(list);
 		addStylesToDom(styles, options);
-
+	
 		return function update(newList) {
 			var mayRemove = [];
 			for(var i = 0; i < styles.length; i++) {
@@ -333,7 +295,7 @@
 			}
 		};
 	}
-
+	
 	function addStylesToDom(styles, options) {
 		for(var i = 0; i < styles.length; i++) {
 			var item = styles[i];
@@ -355,7 +317,7 @@
 			}
 		}
 	}
-
+	
 	function listToStyles(list) {
 		var styles = [];
 		var newStyles = {};
@@ -373,7 +335,7 @@
 		}
 		return styles;
 	}
-
+	
 	function insertStyleElement(options, styleElement) {
 		var head = getHeadElement();
 		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
@@ -392,7 +354,7 @@
 			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
 		}
 	}
-
+	
 	function removeStyleElement(styleElement) {
 		styleElement.parentNode.removeChild(styleElement);
 		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
@@ -400,24 +362,24 @@
 			styleElementsInsertedAtTop.splice(idx, 1);
 		}
 	}
-
+	
 	function createStyleElement(options) {
 		var styleElement = document.createElement("style");
 		styleElement.type = "text/css";
 		insertStyleElement(options, styleElement);
 		return styleElement;
 	}
-
+	
 	function createLinkElement(options) {
 		var linkElement = document.createElement("link");
 		linkElement.rel = "stylesheet";
 		insertStyleElement(options, linkElement);
 		return linkElement;
 	}
-
+	
 	function addStyle(obj, options) {
 		var styleElement, update, remove;
-
+	
 		if (options.singleton) {
 			var styleIndex = singletonCounter++;
 			styleElement = singletonElement || (singletonElement = createStyleElement(options));
@@ -443,9 +405,9 @@
 				removeStyleElement(styleElement);
 			};
 		}
-
+	
 		update(obj);
-
+	
 		return function updateStyle(newObj) {
 			if(newObj) {
 				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
@@ -456,19 +418,19 @@
 			}
 		};
 	}
-
+	
 	var replaceText = (function () {
 		var textStore = [];
-
+	
 		return function (index, replacement) {
 			textStore[index] = replacement;
 			return textStore.filter(Boolean).join('\n');
 		};
 	})();
-
+	
 	function applyToSingletonTag(styleElement, index, remove, obj) {
 		var css = remove ? "" : obj.css;
-
+	
 		if (styleElement.styleSheet) {
 			styleElement.styleSheet.cssText = replaceText(index, css);
 		} else {
@@ -482,16 +444,16 @@
 			}
 		}
 	}
-
+	
 	function applyToTag(styleElement, obj) {
 		var css = obj.css;
 		var media = obj.media;
 		var sourceMap = obj.sourceMap;
-
+	
 		if(media) {
 			styleElement.setAttribute("media", media)
 		}
-
+	
 		if(styleElement.styleSheet) {
 			styleElement.styleSheet.cssText = css;
 		} else {
@@ -501,23 +463,23 @@
 			styleElement.appendChild(document.createTextNode(css));
 		}
 	}
-
+	
 	function updateLink(linkElement, obj) {
 		var css = obj.css;
 		var media = obj.media;
 		var sourceMap = obj.sourceMap;
-
+	
 		if(sourceMap) {
 			// http://stackoverflow.com/a/26603875
 			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
 		}
-
+	
 		var blob = new Blob([css], { type: "text/css" });
-
+	
 		var oldSrc = linkElement.href;
-
+	
 		linkElement.href = URL.createObjectURL(blob);
-
+	
 		if(oldSrc)
 			URL.revokeObjectURL(oldSrc);
 	}
@@ -525,3 +487,4 @@
 
 /***/ }
 /******/ ]);
+//# sourceMappingURL=bundle.js.map

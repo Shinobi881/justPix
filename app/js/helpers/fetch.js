@@ -25,7 +25,5 @@ var ApiCall = function(source) {
 var fetchFlickr = new ApiCall(api.flickr);
 
 module.exports = {
-  fetchFlickr: fetchFlickr,
-  next: next, 
-  prev: prev
+  fetchFlickr: fetchFlickr
 };
