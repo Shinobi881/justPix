@@ -23,7 +23,7 @@
 1. `$ npm install -g webpack` 
 2. `$ npm install -g webpack-dev-server`                
 4. `$ webpack-dev-server`
-5. Open a browser window and navigate to `localhost:8080/app`
+5. Open a browser window and navigate to: `http://localhost:8080/webpack-dev-server/app/index.html`
 
 #Contributing
 *Please adhere to the style and contribution guides when making pull request and be courteous and appropriate when adding/commenting on issues*

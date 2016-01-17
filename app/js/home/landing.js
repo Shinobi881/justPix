@@ -6,9 +6,9 @@ var api = require('../helpers/apilist.js');
 function test() {
   var respData = null;
   var flickrPhotos = [];
-  console.log('Search', search.value);
+  // console.log('Search', search.value);
   // console.log('Search', fetch;
-  // console.log('Search' );
+  console.log('Search' );
   return fetch.fetchFlickr('mount tamalpais')
     .then(function(data) {
       

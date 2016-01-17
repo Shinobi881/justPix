@@ -8,7 +8,7 @@ var ApiCall = function(source) {
     console.log(searchTag);
     var reqUrl = source.rootUrl + source.method +
       source.key + searchTag + source.options;
-    console.log(reqUrl);
+    // console.log(reqUrl);
     return new Promise(function(resolve, reject) {
       var req = new XMLHttpRequest();
       req.open('get', reqUrl, true);
