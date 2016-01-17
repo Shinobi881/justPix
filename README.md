@@ -18,6 +18,7 @@
 
 #Installation
 *Instructions for building with webpack*
+
 1. `$ npm install -g webpack` 
 2. `$ npm install -dwebpack-dev-server`                
 4. `$ webpack-dev-server`
@@ -25,7 +26,22 @@
 
 #Contributing
 *Please adhere to the style and contribution guides when making pull request and be courteous and appropriate when adding/commenting on issues*
-1. [Contribution Guide](COTRIBUTING.md)
-2. [Style guide](STYLE-GUIDE.md)
-3. [Closing issues via coomits](https://help.github.com/articles/closing-issues-via-commit-messages/)
 
+1. [Contribution Guide](CONTRIBUTING.md)
+2. [Style guide](STYLE-GUIDE.md)
+
+#Application Structure
+
+###Home Directory
+*Will handle all user facing functionality*
+
+- search.js - Handler for user search data/view
+- lightbox.js - Handler for lightbox view and controls
+- landing.js - Handler for the main app view/subviews (search, lighbox)
+
+###Helpers Directory
+*Handle API's, fetching and processing of images*
+
+- apilist.js - List of all API objects used for fetching
+- fetch.js - This will define fetching for each API used (from apilist.js)
+- imageprocessor.js - Process all image data returned from fetch (may be furthur broken up)

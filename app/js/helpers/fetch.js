@@ -1,6 +1,6 @@
 var api = require('./apilist.js');
 
-///////////////// MAKE SURE TO ESCAPE FOR MALICIOUS SCRIPTS //////////////////////
+///////////////// MAKE SURE TO ESCAPE FOR MALICIOUS SCRIPTS /////////////////
 
 var ApiCall = function(source) {
   // console.log(source)
@@ -20,15 +20,12 @@ var ApiCall = function(source) {
       req.send();
     })
   }
-
 }
 
 var fetchFlickr = new ApiCall(api.flickr);
 
-
 module.exports = {
   fetchFlickr: fetchFlickr,
-  // getJSON: getJSON, 
   next: next, 
   prev: prev
 };

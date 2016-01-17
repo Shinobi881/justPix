@@ -1,6 +1,6 @@
 var fetch = require('../helpers/fetch.js');
 var search = require('./search.js');
-var api = require('../helpers/apilist.js');
+// var api = require('../helpers/apilist.js');
 
 // var test = "It works from ./js/home/landing.js.";
 function test() {
