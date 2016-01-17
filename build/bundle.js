@@ -45,27 +45,145 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var landing = __webpack_require__(1);
-	var css = __webpack_require__(2);
+	var css = __webpack_require__(4);
+	var search = __webpack_require__(3);
 
-	document.write(Landing);
+	document.write(landing);
+
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "It works from ./js/home/landing.js.";
+	var fetch = __webpack_require__(2);
+	var search = __webpack_require__(3);
+
+	// var test = "It works from ./js/home/landing.js.";
+	function test() {
+	  console.log('Search', search);
+	  return fetch.fetch();
+	}
+	module.exports = test();
 
 /***/ },
 /* 2 */
+/***/ function(module, exports) {
+
+	// using XML to GET photos using Flickr API
+	var respData = null;
+	var flickrPhotos = [];
+
+	// TODO:
+	  // add options for user to specify how many photos would s/he like to be returned with drop down menu
+	  // add title to each photo to display in lightbox
+	  // have thumbnails section empty and repopulate when user searches new keyword (as opposed to searching a new keyword and the new thumbnails are appended to page after previous thumbnails)
+	  // combine last two promises we don't have to iterate through results twice
+	var getJSON = function(tag) {
+	  tag = tag || 'iceland';
+	  var query = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=d7b5799416ae2ea346791364f3d8bd7c&safe_search&tags=iceland&format=json&per_page=50&nojsoncallback=?"
+
+	  return new Promise(function(resolve, reject) {
+	    var xhr = new XMLHttpRequest();
+	    xhr.open('get', query, true);
+	    xhr.responseType = 'json';
+	    xhr.onload = function() {
+	      var status = xhr.status;
+	      if (status == 200) {
+	        resolve(xhr.response);
+	        
+	      } else {
+	        reject(status);
+	        
+	      }
+	    };
+	    xhr.send();
+	  }).then(function(data) {
+	    respData = data;
+	    console.log('respData: ',respData);
+	  }, function(status) {
+	    console.log('There was an error.......',status);
+	  }).then(function(){
+	    // concatenates values from each image to create the image's URL as a string
+	    // code from my previous FLickr photo project :)
+	      // https://github.com/veeweeherman/tinpurr
+	    var photosArr = respData.photos.photo;
+	    for (var i = 0; i < photosArr.length; i++) {
+	      var photoURL = "https://farm" +
+	      photosArr[i].farm +".static.flickr.com/"+
+	      photosArr[i].server +"/"+
+	      photosArr[i].id +"_"+
+	      photosArr[i].secret +".jpg";
+	      flickrPhotos.push(photoURL);
+	    }
+	  }).then(function(){
+	    var thumbnails = document.getElementById('thumbnails');
+	    var lbContainer = document.getElementById('lbContainer');
+	    for (var i = 0; i < flickrPhotos.length; i++) {
+	      // Create and display thumbnails
+	      var thumbnailAtag = document.createElement("a");
+	      thumbnailAtag.href = "#img" + (i+1);
+	      var thumbnailImage = document.createElement("img");
+	      thumbnailImage.setAttribute('class','thumbs');
+	      thumbnailImage.src = flickrPhotos[i];
+	      thumbnailAtag.appendChild(thumbnailImage);
+	      thumbnails.insertBefore(thumbnailAtag,endThumbnails);
+
+	      // Create each image that can be hidden/displayed in the lightbox
+	      var lbAtag = document.createElement("a");
+	      lbAtag.href = "#_";
+	      lbAtag.setAttribute('class','lightbox');
+	      lbAtag.id = "img" + (i+1);
+	      var image = document.createElement("img");
+	      image.setAttribute('class','currentLBphoto');
+	      image.src = flickrPhotos[i];
+	      lbAtag.appendChild(image);
+	      lbContainer.insertBefore(lbAtag,endlbContainer);
+	    }
+	  });
+	};
+
+
+
+	// TODO: add prev/next button functionality so user can go back or jump ahead to next photo
+	  // use each image's index that it is associated with in the array of all images, increment and decrement the index by click prev/next
+	var i = -1;
+	function next(){
+	    if (i >= flickrPhotos.length) {i = -1;}
+	  i += 1;
+	  console.log('incrementing',i);
+	  var url = 'url(' + flickrPhotos[i] + ')';
+	  document.getElementById('prevnext').style.backgroundImage=url;
+	 }
+
+	function prev(){
+	  if (i <= -1) {i = flickrPhotos.length;}
+	  i -= 1;
+	  console.log('decrementing',i);
+	  var url = 'url(' + flickrPhotos[i] + ')';
+	  document.getElementById('prevnext').style.backgroundImage=url;
+	}
+
+	module.exports = {fetch: getJSON, next: next, prev: prev};
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	var search = document.getElementById('userTags');
+
+	module.exports = search;
+
+/***/ },
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(3);
+	var content = __webpack_require__(5);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(5)(content, {});
+	var update = __webpack_require__(7)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -82,10 +200,10 @@
 	}
 
 /***/ },
-/* 3 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(4)();
+	exports = module.exports = __webpack_require__(6)();
 	// imports
 
 
@@ -96,7 +214,7 @@
 
 
 /***/ },
-/* 4 */
+/* 6 */
 /***/ function(module, exports) {
 
 	/*
@@ -152,7 +270,7 @@
 
 
 /***/ },
-/* 5 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

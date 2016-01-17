@@ -28,3 +28,4 @@
 1. [Contribution Guide](COTRIBUTING.md)
 2. [Style guide](STYLE-GUIDE.md)
 3. [Closing issues via coomits](https://help.github.com/articles/closing-issues-via-commit-messages/)
+
