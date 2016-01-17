@@ -46,3 +46,9 @@
 - apilist.js - List of all API objects used for fetching
 - fetch.js - This will define fetching for each API used (from apilist.js)
 - imageprocessor.js - Process all image data returned from fetch (may be furthur broken up)
+
+`Browser compatibility`:
+IE - 
+- Download Virtual Box: https://www.virtualbox.org/wiki/Downloads
+- Download VM for IE (and _MS Edge too_): https://dev.windows.com/en-us/microsoft-edge/tools/vms/mac/
+- Then: `http://10.0.2.2:8080/webpack-dev-server/app/index.html`

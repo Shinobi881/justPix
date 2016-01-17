@@ -1,14 +1,12 @@
 var api = require('./apilist.js');
 
-///////////////// MAKE SURE TO ESCAPE FOR MALICIOUS SCRIPTS /////////////////
-
+// Fetch constructor for API calls 
+// Will likely need to be refactored for adding api's
 var ApiCall = function(source) {
-  // console.log(source)
   return function(searchTag) {
-    console.log(searchTag);
+    searchTag = searchTag || 'nature'
     var reqUrl = source.rootUrl + source.method +
       source.key + searchTag + source.options;
-    // console.log(reqUrl);
     return new Promise(function(resolve, reject) {
       var req = new XMLHttpRequest();
       req.open('get', reqUrl, true);
@@ -22,8 +20,10 @@ var ApiCall = function(source) {
   }
 }
 
-var fetchFlickr = new ApiCall(api.flickr);
+// Fetch instance for the Flickr API
+var flickr = new ApiCall(api.flickr);
 
 module.exports = {
-  fetchFlickr: fetchFlickr
+  flickr: flickr,
+  // otherAPI: API
 };
