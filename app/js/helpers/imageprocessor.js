@@ -14,10 +14,15 @@ var search = require('../home/search.js');
     // Image thumbnail
     // OPTION click-handler for lightbox
 
-var Photo = function(photoObject) {
+function ImageTag(obj) {
+
+}
+
+function Photo(photoObject) {
   this.imageUrl = photoObject.imageUrl;
   this.title = photoObject.title;
   this.id = photoObject.id;
+
   
 };
 
@@ -47,17 +52,37 @@ function flickrProcessor(photoArray) {
 };
 
 // After being passed all over the place, finally calls the Flickr API, processes the photos and returns an array of 'Photo' instances
+var imageContainer = document.getElementById('thumbContainer');
+
+
 function flickrImages() {
   var imageArray = [];
   
-  search.searchFlickr()
+  search.searchFlickr
   .then(function(data) {
     imageArray = flickrProcessor(data.photos.photo);
     console.log(imageArray);
 
   }, function(status) {
     console.log('There was an error.......',status);
-  });
+  })
+  .then(function(){
+    // var domImage = document.createElement('img')
+    // .setAttribute('class', 'thumb')
+    // .setAttribute('src', image.imageUrl);
+
+
+  imageArray.forEach(function(image, index) {
+    var domImage = document.createElement('img');
+    domImage.setAttribute('class', 'thumb')
+    domImage.setAttribute('src', image.imageUrl);
+
+    imageContainer.appendChild(domImage);
+    console.log(domImage);
+    // console.log(image)
+
+    });
+  })
 
   return imageArray;
   

@@ -4,9 +4,10 @@ var api = require('./apilist.js');
 // Will likely need to be refactored for adding api's
 var ApiCall = function(source) {
   return function(searchTag) {
-    searchTag = searchTag || 'nature'
+    // searchTag = searchTag;
     var reqUrl = source.rootUrl + source.method +
       source.key + searchTag + source.options;
+      console.log(searchTag);
     return new Promise(function(resolve, reject) {
       var req = new XMLHttpRequest();
       req.open('get', reqUrl, true);

@@ -1,16 +1,16 @@
 var fetch = require('../helpers/fetch.js');
-var landing = require('./landing.js')
+// var landing = require('./landing.js')
 /////////////////////////////////////////////////////////////////////////////
 ///////////////// MAKE SURE TO ESCAPE FOR MALICIOUS SCRIPTS /////////////////
 /////////////////////////////////////////////////////////////////////////////
 
 ///////////////// This may be better deal with in the landing view
 
+var tag = 'sunrise';
 // Apply search params to fetch function 
-function searchFlickr(){/*rake in a search object from the user*/
-     
-    return fetch.flickr(landing.searchTag);      
+function searchFlickr(searchTag){
+  return fetch.flickr(searchTag);
   
 }
 
-module.exports = {searchFlickr: searchFlickr}
+module.exports = {searchFlickr: searchFlickr(tag)}
