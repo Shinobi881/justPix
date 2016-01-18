@@ -1,4 +1,5 @@
 var api = require('./apilist.js');
+var Promise = require('promise-polyfill');
 
 // Fetch constructor for API calls 
 // Will likely need to be refactored for adding api's
@@ -10,15 +11,14 @@ var ApiCall = function(source) {
       console.log(searchTag);
     return new Promise(function(resolve, reject) {
       var req = new XMLHttpRequest();
+      
       req.open('get', reqUrl, true);
       req.responseType = 'json';
       req.onload = function() {
         var status = req.status;
         status === 200 ? resolve(req.response) : reject(status);
       };
-      req.send(function(data) {
-        console.log('request data', data)
-      });
+      req.send();
     })
   }
 }
