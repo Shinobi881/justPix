@@ -7,12 +7,10 @@ function searchBox(search) {
 }
 
 
-// console.log(images.flickrImages());
+//   var imageContainer = document.getElementsByClassName('thumb');
+// console.log(imageContainer);
 
-images.flickrImages().map(function(imageObj) {
-  console.log("Image obj", imageObj);
-})
-
+images.flickrImages()
 // console.log(imageContainer)
 
 
@@ -29,17 +27,16 @@ images.flickrImages().map(function(imageObj) {
 //   console.log(image)
 
 // });
-  // var imageContainer = document.getElementById('thumbContainer');
 
-function putImagesOnDom() {
+// function putImagesOnDom() {
   
-  // var domImage = document.createElement('img')
-  // .setAttribute('class', 'thumb')
-  // .setAttribute('src', image.imageUrl);
+//   var domImage = document.createElement('img')
+//   .setAttribute('class', 'thumb')
+//   .setAttribute('src', image.imageUrl);
 
-  // console.log(domImage);
+//   console.log(domImage);
 
-};
+// };
 
 
 // Lightbox
@@ -52,4 +49,4 @@ function putImagesOnDom() {
 
 
 
-module.exports = {dom: putImagesOnDom};
+module.exports = {};

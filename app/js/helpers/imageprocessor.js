@@ -74,11 +74,15 @@ function flickrImages() {
 
   imageArray.forEach(function(image, index) {
     var domImage = document.createElement('img');
-    domImage.setAttribute('class', 'thumb')
+    domImage.setAttribute('class', 'thumb');
     domImage.setAttribute('src', image.imageUrl);
+    domImage.setAttribute('id', index);
+    domImage.addEventListener('click', function(image) {
+      console.log(this);
+    });
 
     imageContainer.appendChild(domImage);
-    console.log(domImage);
+    // console.log(domImage);
     // console.log(image)
 
     });
