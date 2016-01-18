@@ -58,6 +58,11 @@
 
 }
 
+/*Apply styles to overlay picture*/
+#overlay .overlayPic {
+  opacity: 0.6;
+}
+
 #mask{ /* create are mask */
     position:fixed;
     top:0;

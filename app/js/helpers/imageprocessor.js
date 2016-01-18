@@ -61,7 +61,7 @@ function flickrImages() {
   search.searchFlickr
   .then(function(data) {
     imageArray = flickrProcessor(data.photos.photo);
-    console.log(imageArray);
+    // console.log(imageArray);
 
   }, function(error) {
     console.log('There was an error.......', error);
@@ -72,7 +72,9 @@ function flickrImages() {
     // .setAttribute('src', image.imageUrl);
 
   var overlay = document.getElementById('overlay');
-  console.log(overlay);
+  
+  
+
 
   ///////// Create Images and append them to the DOM ////////////
   imageArray.forEach(function(image, index) {
@@ -81,10 +83,17 @@ function flickrImages() {
     domImage.setAttribute('src', image.imageUrl);
     domImage.setAttribute('id', index);
     domImage.setAttribute('title', image.title);
-    domImage.addEventListener('click', function(image) {
-      overlay.appendChild(this);
-      this.classList.add('class', 'overlayPic');
-      console.dir(this.nextSibling);
+    domImage.addEventListener('click', function(event) {
+      // console.log(overlay.children[])
+      if (overlay.children.length === 1) {
+        // console.dir(overlay)
+        overlay.appendChild(this);
+      } else if (overlay.children.length > 1){
+        overlay.removeChild(overlay.lastChild);
+        overlay.appendChild(this);
+      }
+
+      this.classList.add('overlayPic');
     });
 
     imageContainer.appendChild(domImage);
@@ -93,6 +102,26 @@ function flickrImages() {
 
     });
   })
+
+  var next = document.getElementById('next');
+  next.addEventListener('click', function(event){
+  
+  var currentImage = document
+  .getElementsByClassName('overlayPic')[0]
+  var currentImageId = currentImage.getAttribute('id');   
+
+  var nextImage = document.getElementById((Number(currentImageId) + 1).toString());
+    // console.log(currentImage); 
+    // console.log(nextImage); 
+    // console.dir(overlay); 
+  imageContainer.insertBefore(currentImage, nextImage); 
+  // overlay.removeChild(currentImage);
+  overlay.appendChild(nextImage);
+    
+
+    // var nextImage = 
+    
+  });
 
   return imageArray;
   
