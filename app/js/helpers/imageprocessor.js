@@ -71,7 +71,10 @@ function flickrImages() {
     // .setAttribute('class', 'thumb')
     // .setAttribute('src', image.imageUrl);
 
+  var overlay = document.getElementById('overlay');
+  console.log(overlay);
 
+  ///////// Create Images and append them to the DOM ////////////
   imageArray.forEach(function(image, index) {
     var domImage = document.createElement('img');
     domImage.setAttribute('class', 'thumb');
@@ -79,6 +82,7 @@ function flickrImages() {
     domImage.setAttribute('id', index);
     domImage.setAttribute('title', image.title);
     domImage.addEventListener('click', function(image) {
+      overlay.appendChild(this);
       this.classList.add('class', 'overlayPic');
       console.dir(this.nextSibling);
     });

@@ -1,0 +1,2 @@
+- IE does not support `Promise`
+- Character escape `Search` 
