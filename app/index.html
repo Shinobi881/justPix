@@ -4,13 +4,27 @@
   </head>
   <body>
  
+  <<!-- div id="element-with-background-image">
+   <div id="color-overlay">
+   </div>
+   
+
+  </div> -->
+
+  <a href="#overlay" id="open-overlay">Open Overlay</a>
+  <div id="overlay">
+      <a href="#" class="close">&times;</a>
+      <div style="height:20%"></div>
+    <img class="overlayID" src="https://farm2.static.flickr.com/1588/24454816525_117e85cd7c.jpg">
+      
+  </div>
+  <div id="mask" onclick="document.location='#';"></div> <!-- the only javascript -->
+
+  
   <div id="thumbContainer" >
     <!-- Thumbnails container       -->
   </div>
-  <div class="test" id="lbContainer">
-    
-    <div id="endlbContainer"></div>
-  </div>
+
     <script src="../build/bundle.js"></script>
   </body>
 </html>

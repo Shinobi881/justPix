@@ -16,7 +16,9 @@ var ApiCall = function(source) {
         var status = req.status;
         status === 200 ? resolve(req.response) : reject(status);
       };
-      req.send();
+      req.send(function(data) {
+        console.log('request data', data)
+      });
     })
   }
 }

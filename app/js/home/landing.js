@@ -10,7 +10,7 @@ function searchBox(search) {
 //   var imageContainer = document.getElementsByClassName('thumb');
 // console.log(imageContainer);
 
-images.flickrImages()
+images.flickrImages() /////////////// UNCOMMENT
 // console.log(imageContainer)
 
 

@@ -77,8 +77,10 @@ function flickrImages() {
     domImage.setAttribute('class', 'thumb');
     domImage.setAttribute('src', image.imageUrl);
     domImage.setAttribute('id', index);
+    domImage.setAttribute('title', image.title);
     domImage.addEventListener('click', function(image) {
-      console.log(this);
+      this.classList.add('class', 'overlayPic');
+      console.dir(this.nextSibling);
     });
 
     imageContainer.appendChild(domImage);
