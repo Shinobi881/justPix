@@ -63,8 +63,8 @@ function flickrImages() {
     imageArray = flickrProcessor(data.photos.photo);
     console.log(imageArray);
 
-  }, function(status) {
-    console.log('There was an error.......',status);
+  }, function(error) {
+    console.log('There was an error.......', error);
   })
   .then(function(){
     // var domImage = document.createElement('img')
