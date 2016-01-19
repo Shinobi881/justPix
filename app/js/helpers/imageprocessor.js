@@ -73,8 +73,9 @@ function flickrImages() {
 
   var overlay = document.getElementById('overlay');
   
-  
 
+
+  // console.log('Overlay', overlayLink);
 
   ///////// Create Images and append them to the DOM ////////////
   imageArray.forEach(function(image, index) {
@@ -83,18 +84,29 @@ function flickrImages() {
     domImage.setAttribute('src', image.imageUrl);
     domImage.setAttribute('id', index);
     domImage.setAttribute('title', image.title);
-    domImage.addEventListener('click', function(event) {
+    
+    var overlayLink = document.createElement('a');
+    overlayLink.setAttribute('href', '#overlay');
+    overlayLink.classList.add(index);
+    // console.log(overlayLink);
+
+    overlayLink.appendChild(domImage);
+
+    overlayLink.addEventListener('click', function(event) {
+      var imageOnly = this.children[0]
+      // console.log(imageOnly);
+
       if (overlay.children.length === 1) {
-        overlay.appendChild(this);
+        overlay.appendChild(imageOnly);
       } else if (overlay.children.length > 1){
         overlay.removeChild(overlay.lastChild);
-        overlay.appendChild(this);
+        overlay.appendChild(imageOnly);
       }
 
-      this.classList.add('overlayPic');
+      imageOnly.classList.add('overlayPic');
     });
 
-    imageContainer.appendChild(domImage);
+    imageContainer.appendChild(overlayLink);
 
   });
   ///////// Create Images and append them to the DOM ////////////
@@ -106,21 +118,27 @@ function flickrImages() {
 
   var next = document.getElementById('next');
   next.addEventListener('click', function(event){
-  
+    
+    
     var currentImage = document
     .getElementsByClassName('overlayPic')[0]
     var currentImageId = currentImage.getAttribute('id');   
 
+    var imageLink = document.getElementsByClassName(currentImageId)[0];
+      // console.log(currentImageId); 
+      // console.log(imageLink); 
+
+
     var nextImage = document.getElementById((Number(currentImageId) + 1).toString());
-      // console.log(currentImage); 
-      // console.log(nextImage); 
+      console.log('Current Image', currentImage); 
+      console.log('Next Image', nextImage); 
       // console.dir(overlay); 
-    imageContainer.insertBefore(currentImage, nextImage); 
+    imageLink.appendChild(currentImage); 
     // overlay.removeChild(currentImage);
     overlay.appendChild(nextImage);
     
   });
-  ////////////// NEXT/PREV Functionality /////////////////
+  //////////// NEXT/PREV Functionality /////////////////
 
   return imageArray;
   

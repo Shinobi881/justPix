@@ -10,6 +10,9 @@
   - Cycle images (in overlay)
 - Close Overlay
 
+###Milestone: *Thumbnails container*
+  *Issue: improper use of `class` attribute for image `anchors`*
+
 ###Milestone: *Cylce through images in overlay*
 *OverlayImage:*
 
