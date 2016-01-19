@@ -1,8 +1,12 @@
 function getOverlay() {
-  return document.getElementById('overlay');
+  return document.getElementById('lightboxImage');
 }
 
-function cyclePrevImage() {
+
+
+
+
+function cyclePrevImage(event) {
 
 };
 
@@ -11,6 +15,7 @@ function getCurrentImage() {
   var currentImageId = currentImage.getAttribute('id');   
   var imageLink = document.getElementsByClassName(currentImageId)[0];
   
+
   return {
     image: currentImage, 
     id: currentImageId,
@@ -21,18 +26,29 @@ function getCurrentImage() {
 function getNextImage() {
   var currentId = getCurrentImage().id;
   var siblingRight = document.getElementById((Number(currentId) + 1).toString());
+  siblingRight.classList.add('overlayPic');
 
   return siblingRight;
 };
 
-var nextButton = document.getElementById('next');
-nextButton.addEventListener('click', cycleNextImage);
 
-function cycleNextImage() {
+
+function cycleNextImage(event) {
+  var overlay = getOverlay();
+  
   var thisImage = getCurrentImage();
+  // console.dir(thisImage.image.classList);
+  console.dir(thisImage);
+  
   var nextImage = getNextImage();
+  console.dir(nextImage);
+
   thisImage.link.appendChild(thisImage.image); 
-  getOverlay().appendChild(nextImage);
+  thisImage.image.classList.remove('overlayPic');
+
+  overlay.appendChild(nextImage);
+
+  console.log(overlay)
   
 };
 

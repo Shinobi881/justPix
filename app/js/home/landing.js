@@ -6,7 +6,8 @@ function searchBox(search) {
   return search;
 }
 
-
+var nextButton = document.getElementById('next');
+nextButton.addEventListener('click', overlay.next);
 //   var imageContainer = document.getElementsByClassName('thumb');
 // console.log(imageContainer);
 
