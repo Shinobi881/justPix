@@ -28,7 +28,6 @@
 - Get it's sibling from the image collection
 - remove child and append sibling
 
-
 *Possible ways of doing this:*
 
 A. Append images to Overlay
@@ -37,6 +36,9 @@ A. Append images to Overlay
   3. prepend `current` to next
   4. append `next` to overlay
 
+    *Issue: images only change once*
+      - Sovled: Remove `'overlayPic'` class name when remove from overlay 
+
 B. Set styles for overlay class
   1. function (`setAttribute('overlayImage')`);
   2. Onclick of set click coords on click 
@@ -44,6 +46,8 @@ B. Set styles for overlay class
 
 C. Add prototype function to `Photo` class
   1. Similar to the first two but will just create a new `img` and apply method `B`
+
+
 
 ###Milestone: *Improve basic user experience*
 - Add spinner
