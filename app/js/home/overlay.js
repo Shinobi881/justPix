@@ -1,25 +1,42 @@
-function prevImage() {};
-  function nextImage() {};
+function getOverlay() {
+  return document.getElementById('overlay');
+}
 
-  var next = document.getElementById('next');
-  next.addEventListener('click', function(event){
-    
-    
-    var currentImage = document
-    .getElementsByClassName('overlayPic')[0]
-    var currentImageId = currentImage.getAttribute('id');   
+function cyclePrevImage() {
 
-    var imageLink = document.getElementsByClassName(currentImageId)[0];
-      // console.log(currentImageId); 
-      // console.log(imageLink); 
+};
 
+function getCurrentImage() {
+  var currentImage = document.getElementsByClassName('overlayPic')[0];
+  var currentImageId = currentImage.getAttribute('id');   
+  var imageLink = document.getElementsByClassName(currentImageId)[0];
+  
+  return {
+    image: currentImage, 
+    id: currentImageId,
+    link: imageLink
+  };
+}
 
-    var nextImage = document.getElementById((Number(currentImageId) + 1).toString());
-      console.log('Current Image', currentImage); 
-      console.log('Next Image', nextImage); 
-      // console.dir(overlay); 
-    imageLink.appendChild(currentImage); 
-    // overlay.removeChild(currentImage);
-    overlay.appendChild(nextImage);
-    
-  });
+function getNextImage() {
+  var currentId = getCurrentImage().id;
+  var siblingRight = document.getElementById((Number(currentId) + 1).toString());
+
+  return siblingRight;
+};
+
+var nextButton = document.getElementById('next');
+nextButton.addEventListener('click', cycleNextImage);
+
+function cycleNextImage() {
+  var thisImage = getCurrentImage();
+  var nextImage = getNextImage();
+  thisImage.link.appendChild(thisImage.image); 
+  getOverlay().appendChild(nextImage);
+  
+};
+
+module.exports = {
+  next: cycleNextImage,
+  prev: cyclePrevImage
+}
