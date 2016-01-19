@@ -56,7 +56,7 @@ var imageContainer = document.getElementById('thumbContainer');
 
 
 function flickrImages() {
-  var imageArray = [];
+  var imageArray = null;
   
   search.searchFlickr
   .then(function(data) {
@@ -73,10 +73,6 @@ function flickrImages() {
 
   var overlay = document.getElementById('overlay');
   
-
-
-  // console.log('Overlay', overlayLink);
-
   ///////// Create Images and append them to the DOM ////////////
   imageArray.forEach(function(image, index) {
     var domImage = document.createElement('img');
@@ -140,7 +136,7 @@ function flickrImages() {
   });
   //////////// NEXT/PREV Functionality /////////////////
 
-  return imageArray;
+  
   
 };
 
