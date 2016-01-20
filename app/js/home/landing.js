@@ -1,5 +1,6 @@
 var search = require('./search.js'); // gets and stores Only stores search object from here
 var images = require('../helpers/imageprocessor.js'); // get the image collection
+var safesearch = require('../helpers/searchsanitize.js'); // get the image collection
 var lightbox = require('./lightbox.js'); // Takes in `images.collection and does lightbox stuff
 var overlay = require('./overlay.js');
 
@@ -25,9 +26,10 @@ searchImages.addEventListener('submit', function(event){
   event.preventDefault();
 
   console.dir(event)
-  console.dir(this[0].value);
-  
-  images.flickrImages(this[0].value);
+  var safe = safesearch.sanitize(this[0].value);
+  console.log(safe);
+
+  images.flickrImages(safe);
   this[0].value = "";
   return false;
 });
