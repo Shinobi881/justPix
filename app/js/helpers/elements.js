@@ -23,33 +23,29 @@ function flickrProcessor(photoData, tagId) {
 };
 
 
-// Create an anchor tag add an image tag, child
+// Controls what happens when clicing on an image
 function imageLinkCreator(imageElement, id) {
   var overlayLink = document.createElement('a');
   var overlay = document.getElementById('lightboxImage');
   var overlayTitle = document.getElementById('lightboxTitle');
   
-
   overlayLink.setAttribute('href', '#overlay');
   overlayLink.classList.add(id);
+  overlayLink.classList.add('fadeIn');
   overlayLink.appendChild(imageElement);
   
   overlayLink.addEventListener('click', function(event) {
     var imageOnly = this.children[0];
     var imageTitle = imageOnly.title
-    
     var imageClone = this.children[0].cloneNode();
-
-    console.log("image clone", imageClone);
-
-
 
     overlayTitle.innerHTML = "";
     overlay.innerHTML = "";
-    // console.dir(overlay.innerHTML);
+    overlay.classList.add('fadeIn')
     overlayTitle.innerHTML = imageTitle;
 
     imageClone.classList.add('overlayPic');
+    imageClone.classList.remove('thumb');
     overlay.appendChild(imageClone);
 
   });
@@ -61,8 +57,10 @@ function imageLinkCreator(imageElement, id) {
 function imageTagCreator(imageObject) {  
     var domImage = document.createElement('img');    
     domImage.classList.add('thumb');
+    domImage.classList.add('fadeIn')
     domImage.src = imageObject.imageUrl;
     domImage.id = imageObject.id;
+    // domImage.onload = "this.style.opacity='1';";
     domImage.title = imageObject.title || 'No Title';
     
     return {iTag: domImage, id: imageObject.id};
@@ -70,6 +68,8 @@ function imageTagCreator(imageObject) {
 
 // Append Images to DOM
 function appendImages(container, imageElement) {
+  imageElement.classList.add('fadeIn')
+
   container.appendChild(imageElement);
 };
 

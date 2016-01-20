@@ -8,7 +8,7 @@
      <div id="color-overlay"></div> </div> -->
 
   
-    <div>
+    <div >
       <h3>Search for images</h3><br>
       <form id="search">
         <input type="text" method"POST" placeholder="nature" />
@@ -21,16 +21,18 @@
       <button id="next">Next</button>
       <a href="#" class="close">&times;</a>
 
-      <div style="height:10%"></div>
+      <div style="height:3%"></div>
       <h2 id="lightboxTitle">Overlay Title</h2>
       <div style="height:10%"></div>
       <div id="lightboxImage"></div>
     </div>
     
     <div id="mask" onclick="document.location='#';"></div> <!-- the only javascript -->
+    <div id="spinnerDiv"></div>
+    <!-- <img class="spinner" src="assets/spinner2.png" alt="" width="120" height="120"> -->
 
-
-    <div id="thumbContainer" >
+    <div onload="this.style.opacity='1';" id="thumbContainer" >
+      
       <!-- Thumbnails container -->
     </div>
 

@@ -64,6 +64,7 @@ function cycleNextImage(event) {
 
   imageTitle.innerHTML = thisImage.image.title;
   overlay.innerHTML = "";
+  nextImage.classList.remove('thumb');
   overlay.appendChild(nextImage);
 
 };
@@ -77,6 +78,7 @@ function cyclePrevImage(event) {
 
   imageTitle.innerHTML = thisImage.image.title;
   overlay.innerHTML = "";
+  prevImage.classList.remove('thumb');
   overlay.appendChild(prevImage);
 };
 

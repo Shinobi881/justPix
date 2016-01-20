@@ -10,10 +10,10 @@
 ###Shipping: 
 [x] - Search Images
 [] - Thumbanail container
-[] - Image Overlay
+[x] - Image Lightbox
   [x] - Add image to overlay
   [x] - Cycle images (in overlay)
-  [] - Display image title
+  [x] - Display image title
 [x] - Close Overlay
 
 [] - Spinner
@@ -58,6 +58,7 @@ C. Add prototype function to `Photo` class
   1. Similar to the first two but will just create a new `img` and apply method `B`
 
 *Overlay Image Title:*
+[] 
 
 ###Cycle Image issues:
 
@@ -70,7 +71,7 @@ C. Add prototype function to `Photo` class
 
 
 *Issue: Removing image from thumbnail container, needs to be copied*
-  - Solved: `appendBefore` next image `onclick` next
+  - Solved: `cloneNode`
 
 
 ###Milestone: *Improve basic user experience*

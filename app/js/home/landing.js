@@ -10,7 +10,19 @@ var overlay = require('./overlay.js');
 
 window.addEventListener('load', function(event){
   images.flickrImages('nature')
-})
+  // spinner()
+});
+
+function spinner() {
+  var stickHere = document.getElementById('spinnerDiv');
+  var spin = document.createElement('img');
+  spin.id = "spinner";
+  spin.src = "assets/spinner2.png";
+
+  spin.appendChild(stickHere)
+
+  console.log(spin);
+}
 
 var nextButton = document.getElementById('next');
 nextButton.addEventListener('click', overlay.next);
