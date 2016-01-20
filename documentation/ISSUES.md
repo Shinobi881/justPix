@@ -18,6 +18,8 @@
 
 - append image as a child to overlay, onclick
 - remove image (if present) add current image as child
+
+  *Issue: Remove images on overlay open and close close*
   
   *Issue: Removing image from thumbnail container, needs to be copied*
     - Solved: `appendBefore` next image `onclick` next

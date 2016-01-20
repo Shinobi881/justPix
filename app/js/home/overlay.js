@@ -2,25 +2,8 @@ function getOverlay() {
   return document.getElementById('lightboxImage');
 }
 
-
-
-
-
-function cyclePrevImage(event) {
-
-};
-
-function getCurrentImage() {
-  var currentImage = document.getElementsByClassName('overlayPic')[0];
-  var currentImageId = currentImage.getAttribute('id');   
-  var imageLink = document.getElementsByClassName(currentImageId)[0];
-  
-
-  return {
-    image: currentImage, 
-    id: currentImageId,
-    link: imageLink
-  };
+function getOverlayImage() {
+  return document.getElementById('overlay');
 }
 
 function getNextImage() {
@@ -31,28 +14,66 @@ function getNextImage() {
   return siblingRight;
 };
 
+function getPrevImage(event) {
+  var currentId = getCurrentImage().id;
+  var siblingLeft = document.getElementById((Number(currentId) - 1).toString());
+  siblingLeft.classList.add('overlayPic');
+  console.log(siblingLeft)
+
+  return siblingLeft;
+};
+
+function getCurrentImage() {
+  var currentImage = getOverlay().children[0]
+  var currentImageId = currentImage.getAttribute('id');   
+  var imageLink = document.getElementsByClassName(currentImageId)[0];
+  
+  return {
+    image: currentImage, 
+    id: currentImageId,
+    link: imageLink
+  };
+}
+
+function removeLightboxImage() {
+  var olayContainer = getOverlay();
+  olayCcontainer.children
+}
+
+
+function closeOverlay() {
+  var olayImage = getCurrentImage();
+  var overlay = getOverlay();
+
+  olayImage.link.appendChild(olayImage.image);
+  olayImage.image.classList.remove('overlayPic');
+}
 
 
 function cycleNextImage(event) {
   var overlay = getOverlay();
-  
   var thisImage = getCurrentImage();
-  // console.dir(thisImage.image.classList);
-  console.dir(thisImage);
-  
   var nextImage = getNextImage();
-  console.dir(nextImage);
 
   thisImage.link.appendChild(thisImage.image); 
   thisImage.image.classList.remove('overlayPic');
-
   overlay.appendChild(nextImage);
 
-  console.log(overlay)
-  
+};
+
+function cyclePrevImage(event) {
+  var overlay = getOverlay();
+  var thisImage = getCurrentImage();
+  var prevImage = getPrevImage();
+
+  thisImage.link.appendChild(thisImage.image); 
+  thisImage.image.classList.remove('overlayPic');
+  overlay.appendChild(prevImage);
+
 };
 
 module.exports = {
   next: cycleNextImage,
-  prev: cyclePrevImage
+  prev: cyclePrevImage,
+  close: closeOverlay
 }

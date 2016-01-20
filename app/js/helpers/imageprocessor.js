@@ -19,7 +19,7 @@ function flickrImages() {
 
         return imageLink;
       });
-    console.log(imageArray[30]);
+    // console.log(imageArray[30]);
   }, function(error) {
     console.log('There was an error.......', error);
   });

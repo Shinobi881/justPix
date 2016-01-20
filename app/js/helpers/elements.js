@@ -26,20 +26,18 @@ function flickrProcessor(photoData, tagId) {
 // Create an anchor tag add an image tag, child
 function imageLinkCreator(imageElement, id) {
   var overlayLink = document.createElement('a');
+  var overlay = document.getElementById('lightboxImage');
+
   overlayLink.setAttribute('href', '#overlay');
   overlayLink.classList.add(id);
   overlayLink.appendChild(imageElement);
+  
   overlayLink.addEventListener('click', function(event) {
-    var imageOnly = this.children[0]
-
-    if (overlay.children.length === 1) {
-      overlay.appendChild(imageOnly);
-    } else if (overlay.children.length > 1){
-      overlay.removeChild(overlay.lastChild);
-      overlay.appendChild(imageOnly);
-    }
+    var imageOnly = this.children[0];
 
     imageOnly.classList.add('overlayPic');
+    overlay.appendChild(imageOnly);
+
   });
 
   return overlayLink;

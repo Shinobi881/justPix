@@ -2,16 +2,25 @@
 var images = require('../helpers/imageprocessor.js'); // get the image collection
 var lightbox = require('./lightbox.js'); // Takes in `images.collection and does lightbox stuff
 var overlay = require('./overlay.js');
+
+console.log(overlay)
+
 function searchBox(search) {
   return search;
 }
 
+images.flickrImages() /////////////// UNCOMMENT
+
 var nextButton = document.getElementById('next');
 nextButton.addEventListener('click', overlay.next);
-//   var imageContainer = document.getElementsByClassName('thumb');
-// console.log(imageContainer);
 
-images.flickrImages() /////////////// UNCOMMENT
+var prevButton = document.getElementById('prev');
+prevButton.addEventListener('click', overlay.prev);
+
+var closeButton = document.getElementsByClassName('close')[0];
+closeButton.addEventListener('click', overlay.close);
+
+
 // console.log(imageContainer)
 
 
