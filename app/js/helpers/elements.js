@@ -27,6 +27,8 @@ function flickrProcessor(photoData, tagId) {
 function imageLinkCreator(imageElement, id) {
   var overlayLink = document.createElement('a');
   var overlay = document.getElementById('lightboxImage');
+  var overlayTitle = document.getElementById('lightboxTitle');
+  
 
   overlayLink.setAttribute('href', '#overlay');
   overlayLink.classList.add(id);
@@ -34,9 +36,21 @@ function imageLinkCreator(imageElement, id) {
   
   overlayLink.addEventListener('click', function(event) {
     var imageOnly = this.children[0];
+    var imageTitle = imageOnly.title
+    
+    var imageClone = this.children[0].cloneNode();
 
-    imageOnly.classList.add('overlayPic');
-    overlay.appendChild(imageOnly);
+    console.log("image clone", imageClone);
+
+
+
+    overlayTitle.innerHTML = "";
+    overlay.innerHTML = "";
+    // console.dir(overlay.innerHTML);
+    overlayTitle.innerHTML = imageTitle;
+
+    imageClone.classList.add('overlayPic');
+    overlay.appendChild(imageClone);
 
   });
 
@@ -49,7 +63,7 @@ function imageTagCreator(imageObject) {
     domImage.classList.add('thumb');
     domImage.src = imageObject.imageUrl;
     domImage.id = imageObject.id;
-    domImage.title = imageObject.title;
+    domImage.title = imageObject.title || 'No Title';
     
     return {iTag: domImage, id: imageObject.id};
 };

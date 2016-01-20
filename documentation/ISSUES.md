@@ -5,6 +5,7 @@
   Issue: *`clone node` instead of referencing from dom*
   Issue: *Add image title to overlay*
   Issue: *improper use of `class` attribute for image `anchors`*
+  Issue: *IE11 Compatible*
 
 ###Shipping: 
 [x] - Search Images
@@ -18,7 +19,7 @@
 [] - Spinner
 [] - Error with search
 [] - Please search again
-[]
+[] - IE11 Compatible
 
 ###Milestone: *User search for image tags*
   Issue: *Character escape search form*
