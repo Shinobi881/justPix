@@ -1,15 +1,15 @@
-// var search = require('./search.js'); // gets and stores Only stores search object from here
+var search = require('./search.js'); // gets and stores Only stores search object from here
 var images = require('../helpers/imageprocessor.js'); // get the image collection
 var lightbox = require('./lightbox.js'); // Takes in `images.collection and does lightbox stuff
 var overlay = require('./overlay.js');
 
-console.log(overlay)
+// console.log(overlay)
 
-function searchBox(search) {
-  return search;
-}
+// images.flickrImages();
 
-images.flickrImages() /////////////// UNCOMMENT
+window.addEventListener('load', function(event){
+  images.flickrImages('nature')
+})
 
 var nextButton = document.getElementById('next');
 nextButton.addEventListener('click', overlay.next);
@@ -20,43 +20,19 @@ prevButton.addEventListener('click', overlay.prev);
 var closeButton = document.getElementsByClassName('close')[0];
 closeButton.addEventListener('click', overlay.close);
 
+var searchImages = document.getElementById('search');
+searchImages.addEventListener('submit', function(event){
+  event.preventDefault();
 
-// console.log(imageContainer)
-
-
-// loop through the image collection
-// Create an image element and append it to the document
-
-// images.flickrImages()
-// .forEach(function(image, index) {
-//   // var domImage = document.createElement('img')
-//   // .setAttribute('class', 'thumb')
-//   // .setAttribute('src', image.imageUrl);
-
-//   // imageContainer.appendChild(domImage);
-//   console.log(image)
-
-// });
-
-// function putImagesOnDom() {
+  console.dir(event)
+  console.dir(this[0].value);
   
-//   var domImage = document.createElement('img')
-//   .setAttribute('class', 'thumb')
-//   .setAttribute('src', image.imageUrl);
-
-//   console.log(domImage);
-
-// };
-
-
-// Lightbox
+  images.flickrImages(this[0].value);
+  this[0].value = "";
+  return false;
+});
 
 
 
 
 
-
-
-
-
-module.exports = {};

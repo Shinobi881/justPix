@@ -8,6 +8,7 @@
 - Have the ability to move to the next / previous photos and display the photo title (lightbox view)
 - User should be able to use site on latest versions of Chrome, Firefox, Safari, Internet Explorer
 - Be able to select photos from a carousel while in the lightbox view
+- Update UI without refreshing the page
 
 *Backlog:*
 - User should be able to search for photos via keyword query

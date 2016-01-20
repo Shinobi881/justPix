@@ -1,6 +1,11 @@
 - IE does not support `Promise`
 - Character escape `Search` 
 
+###Important Issues:
+  Issue: *`clone node` instead of referencing from dom*
+  Issue: *Add image title to overlay*
+  Issue: *Character escape search form*
+
 ###Shipping: 
 - Search Images
 - Thumbanail container
@@ -9,6 +14,9 @@
   - Display image title
   - Cycle images (in overlay)
 - Close Overlay
+s
+###Milestone: *User search for image tags*
+
 
 ###Milestone: *Thumbnails container*
   *Issue: improper use of `class` attribute for image `anchors`*
@@ -19,10 +27,6 @@
 - append image as a child to overlay, onclick
 - remove image (if present) add current image as child
 
-  *Issue: Remove images on overlay open and close close*
-  
-  *Issue: Removing image from thumbnail container, needs to be copied*
-    - Solved: `appendBefore` next image `onclick` next
 
 *Cycle Images*
 
@@ -38,8 +42,6 @@ A. Append images to Overlay
   3. prepend `current` to next
   4. append `next` to overlay
 
-    *Issue: images only change once*
-      - Sovled: Remove `'overlayPic'` class name when remove from overlay 
 
 B. Set styles for overlay class
   1. function (`setAttribute('overlayImage')`);
@@ -49,6 +51,19 @@ B. Set styles for overlay class
 C. Add prototype function to `Photo` class
   1. Similar to the first two but will just create a new `img` and apply method `B`
 
+
+###Cycle Image issues:
+
+
+*Issue: Remove images on overlay open and close close*
+  - Solved: Remove images when close buttong is clicked
+
+*Issue: images only change once*
+  - Sovled: Remove `'overlayPic'` class name when remove from overlay 
+
+
+*Issue: Removing image from thumbnail container, needs to be copied*
+  - Solved: `appendBefore` next image `onclick` next
 
 
 ###Milestone: *Improve basic user experience*
