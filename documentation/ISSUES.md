@@ -1,32 +1,37 @@
 - IE does not support `Promise`
 - Character escape `Search` 
 
-###Important Issues:
+###Open Issues:
   Issue: *`clone node` instead of referencing from dom*
   Issue: *Add image title to overlay*
-  Issue: *Character escape search form*
+  Issue: *improper use of `class` attribute for image `anchors`*
 
 ###Shipping: 
-- Search Images
-- Thumbanail container
-- Image Overlay
-  - Add image overlay
-  - Display image title
-  - Cycle images (in overlay)
-- Close Overlay
-s
-###Milestone: *User search for image tags*
+[x] - Search Images
+[] - Thumbanail container
+[] - Image Overlay
+  [x] - Add image to overlay
+  [x] - Cycle images (in overlay)
+  [] - Display image title
+[x] - Close Overlay
 
+[] - Spinner
+[] - Error with search
+[] - Please search again
+[]
+
+###Milestone: *User search for image tags*
+  Issue: *Character escape search form*
+   - Solved: *`js/helpers/serachsanitize.js`*
 
 ###Milestone: *Thumbnails container*
-  *Issue: improper use of `class` attribute for image `anchors`*
+
 
 ###Milestone: *Cylce through images in overlay*
 *OverlayImage:*
 
 - append image as a child to overlay, onclick
 - remove image (if present) add current image as child
-
 
 *Cycle Images*
 
@@ -51,6 +56,7 @@ B. Set styles for overlay class
 C. Add prototype function to `Photo` class
   1. Similar to the first two but will just create a new `img` and apply method `B`
 
+*Overlay Image Title:*
 
 ###Cycle Image issues:
 
