@@ -10,18 +10,17 @@ var overlay = require('./overlay.js');
 
 window.addEventListener('load', function(event){
   images.flickrImages('nature')
-  // spinner()
+  spinner()
 });
 
 function spinner() {
   var stickHere = document.getElementById('spinnerDiv');
   var spin = document.createElement('img');
-  spin.id = "spinner";
-  spin.src = "assets/spinner2.png";
+  setTimeout(function() {
+    document.body.removeChild(spinnerDiv);
 
-  spin.appendChild(stickHere)
-
-  console.log(spin);
+  }, 2000);
+  console.log(stickHere);
 }
 
 var nextButton = document.getElementById('next');
@@ -37,6 +36,7 @@ var searchImages = document.getElementById('search');
 searchImages.addEventListener('submit', function(event){
   event.preventDefault();
 
+  
   console.dir(event)
   var safe = safesearch.sanitize(this[0].value);
   console.log(safe);
