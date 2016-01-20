@@ -18,7 +18,6 @@
 [] - Spinner
 [] - Error with search
 [] - Please search again
-[]
 
 ###Milestone: *User search for image tags*
   Issue: *Character escape search form*
