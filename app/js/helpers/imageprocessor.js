@@ -22,19 +22,31 @@ function flickrImages(searchTag) {
   var imageArray = null;
   
   
-  fetch.apiKeys.get('../flickr.json')
-  .then(function(data) {     
-    // imageArray = data;
-    fetch.flickr.get(data.flickr, searchTag)(imageContainer, processAPI);
-  }, function(error) {
-    document.write('There was an error.......', error);
-  })
-  .then(function() {
-    // setTimeout(function(){ 
+  // fetch.apiKeys.get()
+  // .then(function(data) {     
+  //   // imageArray = data;
+  // }, function(error) {
+  //   document.write('There was an error.......', error);
+  // })
+  
 
-    // }, 5000)
+  var apiData = new XMLHttpRequest;
+  apiData.open('GET', '../flickr.json', true);
+  apiData.onload = function() {
+    if (this.status >= 200 && this.status < 400) {
+      console.log('API call working');
+      // Success!
+      console.log(this.response);
+      fetch.flickr.get(JSON.parse(this.response).flickr, searchTag)(imageContainer, processAPI);
+    } else {
+      document.write('<h2>We\'re experiencing technical diffculties. Please try again later<h2>');
+    }
+  };
+  apiData.onerror = function() {
+    console.log('Request error');
+  };
+  apiData.send();
 
-  })
 
 
 

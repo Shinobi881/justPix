@@ -34,21 +34,21 @@ var api = require('./apilist.js');
 
 // }
 
-function ApiCall() {
-  var req = new XMLHttpRequest();
-  this.get = function(url) {
-    // searchTag = searchTag;
-    return new Promise(function(resolve, reject) {      
-      req.open('get', url, true);
-      req.responseType = 'json';
-      req.onload = function() {
-        var status = req.status;
-        status === 200 ? resolve(req.response) : reject(status);
-      };
-      req.send();
-    })
-  }
-}
+// function ApiCall() {
+//   var req = new XMLHttpRequest();
+//   this.get = function(url) {
+//     // searchTag = searchTag;
+//     return new Promise(function(resolve, reject) {      
+//       req.open('get', url, true);
+//       req.responseType = 'json';
+//       req.onload = function() {
+//         var status = req.status;
+//         status === 200 ? resolve(req.response) : reject(status);
+//       };
+//       req.send();
+//     })
+//   }
+// }
 
 
 
@@ -89,7 +89,7 @@ function Http() {
 
 var flickr = new Http();
 // Fetch instance for the Flickr API
-var apiKeys = new ApiCall();
+// var apiKeys = new ApiCall();
 
  
 // apiKeys.get('../flickr.json')
@@ -106,6 +106,6 @@ var apiKeys = new ApiCall();
 
 module.exports = {
   flickr: flickr,
-  apiKeys: apiKeys
+  // apiKeys: apiKeys
   // otherAPI: API
 };
