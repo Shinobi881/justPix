@@ -32,7 +32,6 @@ function imageLinkCreator(imageElement, id) {
   
   overlayLink.setAttribute('href', '#overlay');
   overlayLink.classList.add(id);
-  overlayLink.classList.add('fadeIn');
   overlayLink.appendChild(imageElement);
   
   overlayLink.addEventListener('click', function(event) {

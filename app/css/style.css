@@ -3,6 +3,7 @@ body {
   padding: 0;
 }
 
+
 .overlayDiv {
   display: inline-block;
   position: relative;
@@ -12,15 +13,22 @@ body {
 }
 
 #search {
-  z-index: 500;
+  
+
 }
-.thumb {
+
+
+
+ a .thumb {
   height: 200px;
   width: 200px;
   /*overflow: auto;*/
   /*border-width: 10px;*/
   /*border-color: gray;*/
-
+  animation: fadein 5s !important;
+  -moz-animation: fadein 5s; /* Firefox */
+  -webkit-animation: fadein 5s; /* Safari and Chrome */
+  -o-animation: fadein 5s; 
 
 }
 
@@ -31,33 +39,24 @@ body {
   /*border-color: #9C0505 !important;
   box-shadow: 1px 1px 3px 2px #9C0505, 0px 0px 20px #9C0505 !important;*/
 
-  -webkit-transform: translate3d(-3px, -3px, 5px);
-  /*src: url('../../includes/fonts/chunk-webfont.svg') format('svg');*/
-  -webkit-font-smoothing: antialiased;
   font-weight: bold;
   box-shadow: 2px 2px 10px 0px #9C0505, 4px 4px 9px 0px #000000  ;
   transition-duration: 0.5s;
-  -webkit-transition-property: transform;
-}
-#thumbContainer #thumbHeader {
-  background-color: purple;
-}
-
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-.fadeIn {
+  transform: translate3d(-3px, -3px, 5px);
+  -ms-transform: translate3d(-3px, -3px, 5px);
   
-
+  -moz-transform: translate3d(-3px, -3px, 5px);
+  -webkit-font-smoothing: antialiased;
+  -webkit-transition-property: transform;
+  -webkit-transition-duration: 0.5s;
+  
+  -webkit-trannsform: translate3d(-3px, -3px, 5px);
+  -webkit-font-smoothing: antialiased;
+  -webkit-transition-property: transform;
+  -webkit-transition-duration: 0.5s;
 }
+
+
 
 .thumbcontainer {
   /*margin: auto;
@@ -67,20 +66,42 @@ body {
   padding: 10px;*/
   display: inline-block;
   opacity:0;
-  -moz-transition: opacity 5s; /* Firefox 4 */
-  -webkit-transition: opacity 5s; /* Safari and Chrome */
-  -o-transition: opacity 5s;
-  transition: opacity 5s;
+  animation: fadein 5s;
+  -moz-animation: fadein 5s; /* Firefox */
+  -webkit-animation: fadein 5s; /* Safari and Chrome */
+  -o-animation: fadein 5s; 
 
+
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+-moz-@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+-webkit-@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+-ms-@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
 /*/////////////////////////////////*/
 .spinner {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 120px;
-    height: 120px;
+    width: 200px;
+    height: 200px;
     margin:-60px 0 0 -60px;
+    opacity: 0.5;
     -webkit-animation:spin 4s linear infinite;
     -moz-animation:spin 4s linear infinite;
     animation:spin 4s linear infinite;
@@ -90,7 +111,7 @@ body {
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 
-/**{margin:0;padding:0;}*/
+*{margin:0;padding:0;}
 #overlay {
     height: 80%;
     width: 40%;
@@ -107,13 +128,11 @@ body {
     left:25%;
     z-index:1000;
     display:none;
-    /* CSS 3 */
     -webkit-border-radius:10px;
     -moz-border-radius:10px;
     -o-border-radius:10px;
     border-radius:10px;
     transition: opacity 400ms;
-
 }
 
 .show {
@@ -124,52 +143,57 @@ body {
   margin-left: %;
   margin-right: 10%;
 }
+
+
+/************* Overlay Properties **************/
 /*Apply styles to overlay picture*/
 #overlay .overlayPic {
-  position:absolute;
-  margin:auto;
-  top:0;
-  bottom:0;
-  left:0;
-  right:0;
+  position: absolute;
+  margin: auto;
+  max-height: auto;
+  max-width: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 #mask{ /* create are mask */
-    position:fixed;
-    top:0;
-    left:0;
-    background:rgba(0,0,0,0.6);
-    z-index:500;
-    width:100%;
-    height:100%;
-    display:none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 500;
+    width: 100%;
+    height: 100%;
+    display: none;
     transition-property: opacity, left, top, height;
     transition-duration: 3s, 5s;
 }
 /* use :target to look for a link to the overlay then we find are mask */
 #overlay:target, #overlay:target + #mask{
-    display:block;
-    opacity:1;
+    display: block;
+    opacity: 1;
     transition: all 0.5s ease-out;
     transition-property: opacity, left, top, height;
     transition-duration: 3s, 5s;
 }
-.close{ /* to make a nice looking pure CSS3 close button */
-    display:block;
-    position:absolute;
-    top:-30px;
-    right:-30px;
-    background:transparent;
-    color:white;
-    height:60px;
-    width:60px;
-    line-height:60px;
-    font-size:35px;
-    text-decoration:none;
-    text-align:center;
-    font-weight:bold;
-    -webkit-border-radius:40px;
-    -moz-border-radius:40px;
-    -o-border-radius:40px;
-    border-radius:40px;
+.close{ /* overlay close button close button */
+    display: block;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: transparent;
+    color: gray;
+    height: 60px;
+    width: 60px;
+    line-height: 60px;
+    font-size: 35px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    -o-border-radius: 40px;
+    border-radius: 40px;
 }
