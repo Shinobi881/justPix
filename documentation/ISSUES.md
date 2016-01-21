@@ -2,10 +2,13 @@
 - Character escape `Search` 
 
 ###Open Issues:
-  Issue: *`clone node` instead of referencing from dom*
-  Issue: *Add image title to overlay*
-  Issue: *improper use of `class` attribute for image `anchors`*
-  Issue: *IE11 Compatible*
+*Issue: close overlay on page load*
+*Issue: Make sure over lay background image sizes correctly*
+*Issue: Spinner on search*
+*Issue: Style overlay image title*
+*Issue: Style overlay buttons*
+*Issue: Style search form*
+
 
 ###Shipping: 
 [x] - Search Images
@@ -17,7 +20,7 @@
 [x] - Close Overlay
 
 [x] - Spinner
-[] - Error with search
+[x] - Error with search
 [] - Please search again
 [x] - IE11 Compatible
 
@@ -59,11 +62,12 @@ C. Add prototype function to `Photo` class
   1. Similar to the first two but will just create a new `img` and apply method `B`
 
 *Overlay Image Title:*
-[] 
 
 ###Cycle Image issues:
 
-
+*Issue: `clone node` instead of referencing from dom*
+ - Solved: node cloned
+ 
 *Issue: Remove images on overlay open and close close*
   - Solved: Remove images when close buttong is clicked
 
@@ -85,6 +89,17 @@ C. Add prototype function to `Photo` class
  - Images entering view
  - Overlay opening 
  - cycling to next image
+
+
+###Issues Closed: 
+*Issue: `IE11` Compatible*
+
+###Bakclog:
+*Issue: improper use of `class` attribute for image `anchors`*
+*Issue: Custom 404 error HTML*
+*Issue: Change defaule landing query at regular intervals*
+*Issue: Display image collection at bottom of the lightbox*
+
 
 *Other:*
 
