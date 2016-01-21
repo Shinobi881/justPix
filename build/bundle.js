@@ -56,7 +56,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var landing = __webpack_require__(1);
-	var css = __webpack_require__(10)
+	var css = __webpack_require__(10);
 
 	// document.write(landing);
 
@@ -65,169 +65,77 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var search = __webpack_require__(2); // gets and stores Only stores search object from here
-	var images = __webpack_require__(5); // get the image collection
-	var safesearch = __webpack_require__(7); // get the image collection
-	var lightbox = __webpack_require__(8); // Takes in `images.collection and does lightbox stuff
+	'use strict';
+
+	var images = __webpack_require__(5); 
+	var safesearch = __webpack_require__(7); 
 	var overlay = __webpack_require__(9);
-
-	var fetch = __webpack_require__(3);
-
-	// images.flickrImages();
-	  console.log(window.navigator)
 
 	var flickrKey = null;
 
-	window.addEventListener('load', function(event) {
-	  images.flickrImages('nature');
-	  spinner();
-	});
-
+	// Spinner for on page load. Needs a class for search
 	function spinner() {
 	  var stickHere = document.getElementById('spinnerDiv');
-	  var spin = document.createElement('img');
 	  setTimeout(function() {
-	    document.body.removeChild(spinnerDiv);
+	    document.body.removeChild(stickHere);
 
 	  }, 2000);
 	  console.log(stickHere);
 	}
 
+	// Page load event listener
+	window.addEventListener('load', function(event) {
+	  images.flickrImages('nature');
+	  spinner();
+	});
+
+	// Append event to lightbox 'next button'
 	var nextButton = document.getElementById('next');
 	nextButton.addEventListener('click', overlay.next);
 
+	// Append event to lightbox 'prev button'
 	var prevButton = document.getElementById('prev');
 	prevButton.addEventListener('click', overlay.prev);
 
+
+	// Append event to lightbox 'close (X) button'
 	var closeButton = document.getElementsByClassName('close')[0];
 	closeButton.addEventListener('click', overlay.close);
 
+	// Search/submit form
 	var searchImages = document.getElementById('search');
 	searchImages.addEventListener('submit', function(event){
 	  event.preventDefault();
 
-
-	  console.dir(event);
 	  var safe = safesearch.sanitize(this[0].value);
-	  console.log(safe);
 
 	  images.flickrImages(safe);
-	  this[0].value = "";
+	  this[0].value = '';
 	  return false;
 	});
 
 	module.exports = {
 	  flickrKey: flickrKey
-	}
+	};
 
 
 
 
 /***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var fetch = __webpack_require__(3);
-	var landing = __webpack_require__(1)
-	/////////////////////////////////////////////////////////////////////////////
-	///////////////// MAKE SURE TO ESCAPE FOR MALICIOUS SCRIPTS /////////////////
-	/////////////////////////////////////////////////////////////////////////////
-
-	///////////////// This may be better deal with in the landing view
-
-	var tag = null;
-
-	function searchFlickr(searchTag){
-	  if (searchTag) {
-	    return fetch.flickr(searchTag);
-	  }
-	  
-	  return fetch.flickr('sunrise');
-	}
-
-	// var searchImages = document.getElementById('search');
-	// searchImages.addEventListener('submit', function(event){
-	//   event.preventDefault();
-
-	//   console.dir(event)
-	//   // console.dir()
-	//   tag = searchFlickr(this[0].value);
-	//   this[0].value = "";
-	//   return false;
-	// });
-
-	// Apply search params to fetch function 
-
-	module.exports = {userSearch: searchFlickr};
-
-/***/ },
+/* 2 */,
 /* 3 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 
-	var api = __webpack_require__(4);
-
-
-	// Make it a proper constructor
-	// Fetch constructor for API calls 
-	// Will likely need to be refactored for adding api's
-	// function flickrKey(){
-	//   return apiKeys('../keys.json');
-	// }
-
-
-	// function apiKeys(url) {
-	//   var req = new XMLHttpRequest;  
-	//   var keys = null;
-	//   req.open('GET', url, true);
-	//   req.onload = function() {
-	//     if (this.status >= 200 && this.status < 400) {
-	//       console.log('working');
-	//       // Success!
-	      
-	//       var keys = JSON.parse(this.response);
-	//       console.log(keys)
-	//     } else {
-	//       document.write('We\'re experiencing technical diffculties. Please try again later');
-	//     }
-	//   };
-	//   req.onerror = function() {
-	//     console.log('Request error');
-	//   };
-	//   req.send();
-	//   return keys;
-
-	// }
-
-	// function ApiCall() {
-	//   var req = new XMLHttpRequest();
-	//   this.get = function(url) {
-	//     // searchTag = searchTag;
-	//     return new Promise(function(resolve, reject) {      
-	//       req.open('get', url, true);
-	//       req.responseType = 'json';
-	//       req.onload = function() {
-	//         var status = req.status;
-	//         status === 200 ? resolve(req.response) : reject(status);
-	//       };
-	//       req.send();
-	//     })
-	//   }
-	// }
-
-
-
-
-	//////////////////////////////////////////////////
-
-	// Flickr API fetch
+	// Flickr API fetch for async purposes
 	function flickrData(data) {
 	  console.log('Flickrdata', data);
 	  return JSON.parse(data);
 	}
 
-	function Http() {
+	// Fetch class for flickr API (IE11 compatible)
+	function FlickrFetch() {
 	  var req = new XMLHttpRequest;
 	  
 	  this.get = function(source, searchTag) {
@@ -242,75 +150,42 @@
 	          // Success!
 	          callback(flickrData(this.response).photos.photo, container);
 	        } else {
-	          document.write('<h2>We\'re experiencing technical diffculties. Please try again later<h2>');
+	          document.write('We\'re experiencing technical diffculties. Please try again later.');
 	        }
 	      };
 	      req.onerror = function() {
 	        console.log('Request error');
 	      };
 	      req.send();
-	    }
-	  }
+	    };
+	  };
 	}
 
-	var flickr = new Http();
-	// Fetch instance for the Flickr API
-	// var apiKeys = new ApiCall();
-
-	 
-	// apiKeys.get('../flickr.json')
-	// .then(function(data) {     
-	//   flickr = 
-	// }, function(error) {
-	//   document.write('There was an error.......', error);
-	// })
-	// .then(function() {
-
-	// })
-
-
+	var flickr = new FlickrFetch();
 
 	module.exports = {
 	  flickr: flickr,
-	  // apiKeys: apiKeys
 	  // otherAPI: API
 	};
 
-
-/***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var landing = __webpack_require__(1);
-
-	var apiList = {
-	  flickr: {
-	    name: 'Flickr',
-	    rootUrl: 'https://api.flickr.com/services/rest/',
-	    method: '?method=flickr.photos.search&',
-	    key: 'api_key=' + landing.flickrKey ,
-	    tag: '&tags=',
-	    options: '&safe_search&format=json&per_page=100&nojsoncallback=?'
-	  }
-	};
-
-	module.exports = apiList;
-
+	// console.log(window.navigator.vendor);
 
 
 /***/ },
+/* 4 */,
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var search = __webpack_require__(2);
+	'use strict';
+
 	var fetch = __webpack_require__(3);
 	var el = __webpack_require__(6);
 
 
-	// After being passed all over the place, finally calls the Flickr API, processes the photos and returns an array of 'Photo' instances
-	function processAPI(collection, container) {
+	// Callback to process the API data and turn it into elements
+	function processAPIData(collection, container) {
 	  return collection.map(function(photo, id){
-	    var flickrData = el.flickrProcessor(photo, id)
+	    var flickrData = el.flickrProcessor(photo, id);
 	    var imageTag = el.imageTagCreator(flickrData);
 	    var imageLink = el.imageLinkCreator(imageTag.iTag, imageTag.id);
 
@@ -318,60 +193,29 @@
 
 	    return imageLink;
 	  });
-	};
+	}
 
+	// Grab the api data from the JSON file in the root and call the api
 	function flickrImages(searchTag) {
 	  var imageContainer = document.getElementById('thumbContainer');
 	  imageContainer.innerHTML = '';
-	  var imageArray = null;
-	  
-	  
-	  // fetch.apiKeys.get()
-	  // .then(function(data) {     
-	  //   // imageArray = data;
-	  // }, function(error) {
-	  //   document.write('There was an error.......', error);
-	  // })
-	  
 
 	  var apiData = new XMLHttpRequest;
-	  apiData.open('GET', '../flickr.json', true);
+	  apiData.open('GET', '../api.json', true);
 	  apiData.onload = function() {
 	    if (this.status >= 200 && this.status < 400) {
 	      console.log('API call working');
 	      // Success!
 	      console.log(this.response);
-	      fetch.flickr.get(JSON.parse(this.response).flickr, searchTag)(imageContainer, processAPI);
+	      fetch.flickr.get(JSON.parse(this.response).flickr, searchTag)(imageContainer, processAPIData);
 	    } else {
-	      document.write('<h2>We\'re experiencing technical diffculties. Please try again later<h2>');
+	      document.write('We\'re experiencing technical diffculties. Please try again later.');
 	    }
 	  };
 	  apiData.onerror = function() {
 	    console.log('Request error');
 	  };
 	  apiData.send();
-
-
-
-
-
-
-	  // fetch.flickr(searchTag)
-	  // .then(function(data) {
-
-	  //     imageArray = data.photos.photo.map(function(photo, id){
-	  //       var flickrData = el.flickrProcessor(photo, id)
-	  //       var imageTag = el.imageTagCreator(flickrData);
-	  //       var imageLink = el.imageLinkCreator(imageTag.iTag, imageTag.id);
-
-	  //       el.appendImages(imageContainer, imageLink);
-
-	  //       return imageLink;
-	  //     });
-	  // }, function(error) {
-	  //   console.log('There was an error.......', error);
-	  // });
-
 
 	};
 
@@ -383,12 +227,14 @@
 /* 6 */
 /***/ function(module, exports) {
 
+	'use strict';
+
 	// Photo object Class
 	function Photo(photoObject) {
 	  this.imageUrl = photoObject.imageUrl;
 	  this.title = photoObject.title;
 	  this.id = photoObject.id;
-	};
+	}
 
 	// Process API data into array of _Photo_ objects
 	function flickrProcessor(photoData, tagId) {
@@ -405,10 +251,9 @@
 	    newPhoto.id = tagId;
 
 	    return new Photo(newPhoto);
-	};
+	}
 
-
-	// Controls what happens when clicing on an image
+	// Onclick, sending an image to the lighbox view
 	function imageLinkCreator(imageElement, id) {
 	  var overlayLink = document.createElement('a');
 	  var overlay = document.getElementById('lightboxImage');
@@ -421,12 +266,12 @@
 	  
 	  overlayLink.addEventListener('click', function(event) {
 	    var imageOnly = this.children[0];
-	    var imageTitle = imageOnly.title
+	    var imageTitle = imageOnly.title;
 	    var imageClone = this.children[0].cloneNode();
 
-	    overlayTitle.innerHTML = "";
-	    overlay.innerHTML = "";
-	    overlay.classList.add('fadeIn')
+	    overlayTitle.innerHTML = '';
+	    overlay.innerHTML = '';
+	    overlay.classList.add('fadeIn');
 	    overlayTitle.innerHTML = imageTitle;
 
 	    imageClone.classList.add('overlayPic');
@@ -436,27 +281,25 @@
 	  });
 
 	  return overlayLink;
-	};
+	}
 
 	// Create an image tag
 	function imageTagCreator(imageObject) {  
 	    var domImage = document.createElement('img');    
 	    domImage.classList.add('thumb');
-	    domImage.classList.add('fadeIn')
+	    domImage.classList.add('fadeIn');
 	    domImage.src = imageObject.imageUrl;
 	    domImage.id = imageObject.id;
-	    // domImage.onload = "this.style.opacity='1';";
 	    domImage.title = imageObject.title || 'No Title';
 	    
 	    return {iTag: domImage, id: imageObject.id};
-	};
+	}
 
 	// Append Images to DOM
 	function appendImages(container, imageElement) {
-	  imageElement.classList.add('fadeIn')
-
+	  imageElement.classList.add('fadeIn');
 	  container.appendChild(imageElement);
-	};
+	}
 
 	module.exports = {
 	  flickrProcessor: flickrProcessor,
@@ -505,16 +348,11 @@
 	*/
 
 /***/ },
-/* 8 */
-/***/ function(module, exports) {
-
-	// Takes in a collection of photos and allows the user to cycle through each photo
-	// User should the ability to move to the next / previous photos and display the photo title (lightbox view)
-
-
-/***/ },
+/* 8 */,
 /* 9 */
 /***/ function(module, exports) {
+
+	'use strict';
 
 	// Get the div for the lightbox image
 	function getOverlay() {
@@ -524,23 +362,20 @@
 	// Det the lightbox image title
 	function getOverlayTitle() {
 	  return document.getElementById('lightboxTitle');
-	};
+	}
 
 	// Close the overlay and remove any images on it
 	function closeOverlay() {
-	  // var olayImage = getCurrentImage();
 	  var overlay = getOverlay();
 	  var overlayTitle = getOverlayTitle();
 
-	  overlay.innerHTML = "";
-	  overlayTitle.innerHTML = "";
-	  // olayImage.link.appendChild(olayImage.image);
-	  // olayImage.image.classList.remove('overlayPic');
+	  overlay.innerHTML = '';
+	  overlayTitle.innerHTML = '';
 	}
 
 	// Get the current image in the overlay
 	function getCurrentImage() {
-	  var currentImage = getOverlay().children[0]
+	  var currentImage = getOverlay().children[0];
 	  var currentImageId = currentImage.getAttribute('id');   
 	  var imageLink = document.getElementsByClassName(currentImageId)[0];
 	  
@@ -560,10 +395,10 @@
 	  siblingRight.classList.add('overlayPic');
 
 	  return siblingRight;
-	};
+	}
 
 	// Get the previous image and clone it for the overlay
-	function getPrevImage(event) {
+	function getPrevImage() {
 	  var currentId = getCurrentImage().id;
 	  var siblingLeft = document.getElementById((Number(currentId) - 1).toString());
 
@@ -571,40 +406,39 @@
 	  siblingLeft.classList.add('overlayPic');
 
 	  return siblingLeft;
-	};
+	}
 
 	// Append the next image to the overlay
-	function cycleNextImage(event) {
+	function cycleNextImage() {
 	  var overlay = getOverlay();
 	  var thisImage = getCurrentImage();
 	  var nextImage = getNextImage();
 	  var imageTitle = getOverlayTitle();
 
 	  imageTitle.innerHTML = thisImage.image.title;
-	  overlay.innerHTML = "";
+	  overlay.innerHTML = '';
 	  nextImage.classList.remove('thumb');
 	  overlay.appendChild(nextImage);
-
-	};
+	}
 
 	// Append the previous image to the overlay
-	function cyclePrevImage(event) {
+	function cyclePrevImage() {
 	  var overlay = getOverlay();
 	  var thisImage = getCurrentImage();
 	  var prevImage = getPrevImage();
 	  var imageTitle = getOverlayTitle();
 
 	  imageTitle.innerHTML = thisImage.image.title;
-	  overlay.innerHTML = "";
+	  overlay.innerHTML = '';
 	  prevImage.classList.remove('thumb');
 	  overlay.appendChild(prevImage);
-	};
+	}
 
 	module.exports = {
 	  next: cycleNextImage,
 	  prev: cyclePrevImage,
 	  close: closeOverlay
-	}
+	};
 
 /***/ },
 /* 10 */
@@ -641,7 +475,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n  margin: 5%;\n  padding: 0;\n}\n\n.overlayDiv {\n  display: inline-block;\n  position: relative;\n  max-height: 300px;\n  max-width: 300px;\n  overflow: auto;\n}\n\n#search {\n  z-index: 500;\n}\n.thumb {\n  height: 200px;\n  width: 200px;\n  /*overflow: auto;*/\n  /*border-width: 10px;*/\n  /*border-color: gray;*/\n\n\n}\n\n.thumb:hover {\n  /*opacity: 0.5;*/\n  /*transform: scale3d(2, 3, 0);\n  transform-origin: center;*/\n  /*border-color: #9C0505 !important;\n  box-shadow: 1px 1px 3px 2px #9C0505, 0px 0px 20px #9C0505 !important;*/\n\n  -webkit-transform: translate3d(-3px, -3px, 5px);\n  /*src: url('../../includes/fonts/chunk-webfont.svg') format('svg');*/\n  -webkit-font-smoothing: antialiased;\n  font-weight: bold;\n  box-shadow: 2px 2px 10px 0px #9C0505, 4px 4px 9px 0px #000000  ;\n  transition-duration: 0.5s;\n  -webkit-transition-property: transform;\n}\n#thumbContainer #thumbHeader {\n  background-color: purple;\n}\n\n\n@keyframes fadeIn {\n  from {\n    opacity: 0;\n  }\n\n  to {\n    opacity: 1;\n  }\n}\n\n.fadeIn {\n  \n\n}\n\n.thumbcontainer {\n  /*margin: auto;\n  width: 80%;\n  height:auto;\n  border: 3px solid #73AD21;\n  padding: 10px;*/\n  display: inline-block;\n  opacity:0;\n  -moz-transition: opacity 5s; /* Firefox 4 */\n  -webkit-transition: opacity 5s; /* Safari and Chrome */\n  -o-transition: opacity 5s;\n  transition: opacity 5s;\n\n}\n/*/////////////////////////////////*/\n.spinner {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    width: 120px;\n    height: 120px;\n    margin:-60px 0 0 -60px;\n    -webkit-animation:spin 4s linear infinite;\n    -moz-animation:spin 4s linear infinite;\n    animation:spin 4s linear infinite;\n}\n@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }\n@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }\n@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }\n\n\n/**{margin:0;padding:0;}*/\n#overlay {\n    height: 80%;\n    width: 40%;\n    margin: 5%;\n    background:white;\n    background-image: url('http://www.tabletwallpapers.org/download/city-wallpaper_800x800.jpg');\n    background-repeat: no-repeat;\n    background-size: 100%;\n    position: fixed;\n    color:black;\n    padding:10px;\n    position:absolute;\n    top:6%;\n    left:25%;\n    z-index:1000;\n    display:none;\n    /* CSS 3 */\n    -webkit-border-radius:10px;\n    -moz-border-radius:10px;\n    -o-border-radius:10px;\n    border-radius:10px;\n    transition: opacity 400ms;\n\n}\n\n.show {\n  transition: opacity 1000ms;\n}\n\n#lightboxImage {\n  margin-left: %;\n  margin-right: 10%;\n}\n/*Apply styles to overlay picture*/\n#overlay .overlayPic {\n  position:absolute;\n  margin:auto;\n  top:0;\n  bottom:0;\n  left:0;\n  right:0;\n}\n\n#mask{ /* create are mask */\n    position:fixed;\n    top:0;\n    left:0;\n    background:rgba(0,0,0,0.6);\n    z-index:500;\n    width:100%;\n    height:100%;\n    display:none;\n    transition-property: opacity, left, top, height;\n    transition-duration: 3s, 5s;\n}\n/* use :target to look for a link to the overlay then we find are mask */\n#overlay:target, #overlay:target + #mask{\n    display:block;\n    opacity:1;\n    transition: all 0.5s ease-out;\n    transition-property: opacity, left, top, height;\n    transition-duration: 3s, 5s;\n}\n.close{ /* to make a nice looking pure CSS3 close button */\n    display:block;\n    position:absolute;\n    top:-30px;\n    right:-30px;\n    background:transparent;\n    color:white;\n    height:40px;\n    width:40px;\n    line-height:40px;\n    font-size:35px;\n    text-decoration:none;\n    text-align:center;\n    font-weight:bold;\n    -webkit-border-radius:40px;\n    -moz-border-radius:40px;\n    -o-border-radius:40px;\n    border-radius:40px;\n}\n", ""]);
+	exports.push([module.id, "body {\n  margin: 5%;\n  padding: 0;\n}\n\n.overlayDiv {\n  display: inline-block;\n  position: relative;\n  max-height: 300px;\n  max-width: 300px;\n  overflow: auto;\n}\n\n#search {\n  z-index: 500;\n}\n.thumb {\n  height: 200px;\n  width: 200px;\n  /*overflow: auto;*/\n  /*border-width: 10px;*/\n  /*border-color: gray;*/\n\n\n}\n\n.thumb:hover {\n  /*opacity: 0.5;*/\n  /*transform: scale3d(2, 3, 0);\n  transform-origin: center;*/\n  /*border-color: #9C0505 !important;\n  box-shadow: 1px 1px 3px 2px #9C0505, 0px 0px 20px #9C0505 !important;*/\n\n  -webkit-transform: translate3d(-3px, -3px, 5px);\n  /*src: url('../../includes/fonts/chunk-webfont.svg') format('svg');*/\n  -webkit-font-smoothing: antialiased;\n  font-weight: bold;\n  box-shadow: 2px 2px 10px 0px #9C0505, 4px 4px 9px 0px #000000  ;\n  transition-duration: 0.5s;\n  -webkit-transition-property: transform;\n}\n#thumbContainer #thumbHeader {\n  background-color: purple;\n}\n\n\n@keyframes fadeIn {\n  from {\n    opacity: 0;\n  }\n\n  to {\n    opacity: 1;\n  }\n}\n\n.fadeIn {\n  \n\n}\n\n.thumbcontainer {\n  /*margin: auto;\n  width: 80%;\n  height:auto;\n  border: 3px solid #73AD21;\n  padding: 10px;*/\n  display: inline-block;\n  opacity:0;\n  -moz-transition: opacity 5s; /* Firefox 4 */\n  -webkit-transition: opacity 5s; /* Safari and Chrome */\n  -o-transition: opacity 5s;\n  transition: opacity 5s;\n\n}\n/*/////////////////////////////////*/\n.spinner {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    width: 120px;\n    height: 120px;\n    margin:-60px 0 0 -60px;\n    -webkit-animation:spin 4s linear infinite;\n    -moz-animation:spin 4s linear infinite;\n    animation:spin 4s linear infinite;\n}\n@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }\n@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }\n@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }\n\n\n/**{margin:0;padding:0;}*/\n#overlay {\n    height: 80%;\n    width: 40%;\n    margin: 5%;\n    background:white;\n    background-image: url('http://www.tabletwallpapers.org/download/city-wallpaper_800x800.jpg');\n    background-repeat: no-repeat;\n    background-size: 100%;\n    position: fixed;\n    color:black;\n    padding:10px;\n    position:absolute;\n    top:6%;\n    left:25%;\n    z-index:1000;\n    display:none;\n    /* CSS 3 */\n    -webkit-border-radius:10px;\n    -moz-border-radius:10px;\n    -o-border-radius:10px;\n    border-radius:10px;\n    transition: opacity 400ms;\n\n}\n\n.show {\n  transition: opacity 1000ms;\n}\n\n#lightboxImage {\n  margin-left: %;\n  margin-right: 10%;\n}\n/*Apply styles to overlay picture*/\n#overlay .overlayPic {\n  position:absolute;\n  margin:auto;\n  top:0;\n  bottom:0;\n  left:0;\n  right:0;\n}\n\n#mask{ /* create are mask */\n    position:fixed;\n    top:0;\n    left:0;\n    background:rgba(0,0,0,0.6);\n    z-index:500;\n    width:100%;\n    height:100%;\n    display:none;\n    transition-property: opacity, left, top, height;\n    transition-duration: 3s, 5s;\n}\n/* use :target to look for a link to the overlay then we find are mask */\n#overlay:target, #overlay:target + #mask{\n    display:block;\n    opacity:1;\n    transition: all 0.5s ease-out;\n    transition-property: opacity, left, top, height;\n    transition-duration: 3s, 5s;\n}\n.close{ /* to make a nice looking pure CSS3 close button */\n    display:block;\n    position:absolute;\n    top:-30px;\n    right:-30px;\n    background:transparent;\n    color:white;\n    height:60px;\n    width:60px;\n    line-height:60px;\n    font-size:35px;\n    text-decoration:none;\n    text-align:center;\n    font-weight:bold;\n    -webkit-border-radius:40px;\n    -moz-border-radius:40px;\n    -o-border-radius:40px;\n    border-radius:40px;\n}\n", ""]);
 
 	// exports
 
