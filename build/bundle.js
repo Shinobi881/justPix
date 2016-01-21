@@ -200,21 +200,21 @@
 
 	// }
 
-	function ApiCall() {
-	  var req = new XMLHttpRequest();
-	  this.get = function(url) {
-	    // searchTag = searchTag;
-	    return new Promise(function(resolve, reject) {      
-	      req.open('get', url, true);
-	      req.responseType = 'json';
-	      req.onload = function() {
-	        var status = req.status;
-	        status === 200 ? resolve(req.response) : reject(status);
-	      };
-	      req.send();
-	    })
-	  }
-	}
+	// function ApiCall() {
+	//   var req = new XMLHttpRequest();
+	//   this.get = function(url) {
+	//     // searchTag = searchTag;
+	//     return new Promise(function(resolve, reject) {      
+	//       req.open('get', url, true);
+	//       req.responseType = 'json';
+	//       req.onload = function() {
+	//         var status = req.status;
+	//         status === 200 ? resolve(req.response) : reject(status);
+	//       };
+	//       req.send();
+	//     })
+	//   }
+	// }
 
 
 
@@ -255,7 +255,7 @@
 
 	var flickr = new Http();
 	// Fetch instance for the Flickr API
-	var apiKeys = new ApiCall();
+	// var apiKeys = new ApiCall();
 
 	 
 	// apiKeys.get('../flickr.json')
@@ -272,7 +272,7 @@
 
 	module.exports = {
 	  flickr: flickr,
-	  apiKeys: apiKeys
+	  // apiKeys: apiKeys
 	  // otherAPI: API
 	};
 
@@ -326,29 +326,30 @@
 	  var imageArray = null;
 	  
 	  
-	  fetch.apiKeys.get()
-	  .then(function(data) {     
-	    // imageArray = data;
-	  }, function(error) {
-	    document.write('There was an error.......', error);
-	  })
+	  // fetch.apiKeys.get()
+	  // .then(function(data) {     
+	  //   // imageArray = data;
+	  // }, function(error) {
+	  //   document.write('There was an error.......', error);
+	  // })
 	  
 
-	  var apiData = new XMLhttpRequest;
+	  var apiData = new XMLHttpRequest;
 	  apiData.open('GET', '../flickr.json', true);
 	  apiData.onload = function() {
 	    if (this.status >= 200 && this.status < 400) {
 	      console.log('API call working');
 	      // Success!
-	      fetch.flickr.get(data.flickr, searchTag)(imageContainer, processAPI);
+	      console.log(this.response);
+	      fetch.flickr.get(JSON.parse(this.response).flickr, searchTag)(imageContainer, processAPI);
 	    } else {
 	      document.write('<h2>We\'re experiencing technical diffculties. Please try again later<h2>');
 	    }
 	  };
-	  req.onerror = function() {
+	  apiData.onerror = function() {
 	    console.log('Request error');
 	  };
-	  req.send();
+	  apiData.send();
 
 
 
