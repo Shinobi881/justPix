@@ -16,6 +16,7 @@ function spinner() {
 
 // Page load event listener
 window.addEventListener('load', function(event) {
+  document.location = '#';
   images.flickrImages('nature');
   spinner();
 });
