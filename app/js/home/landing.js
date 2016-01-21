@@ -1,16 +1,19 @@
 var search = require('./search.js'); // gets and stores Only stores search object from here
 var images = require('../helpers/imageprocessor.js'); // get the image collection
-var safesearch = require('../helpers/searchsanitize.js'); // get the image collection
+var safesearch = require('../../libs/searchsanitize.js'); // get the image collection
 var lightbox = require('./lightbox.js'); // Takes in `images.collection and does lightbox stuff
 var overlay = require('./overlay.js');
 
-// console.log(overlay)
+var fetch = require('../helpers/fetch.js');
 
 // images.flickrImages();
+  console.log(window.navigator)
 
-window.addEventListener('load', function(event){
-  images.flickrImages('nature')
-  spinner()
+var flickrKey = null;
+
+window.addEventListener('load', function(event) {
+  images.flickrImages('nature');
+  spinner();
 });
 
 function spinner() {
@@ -36,8 +39,8 @@ var searchImages = document.getElementById('search');
 searchImages.addEventListener('submit', function(event){
   event.preventDefault();
 
-  
-  console.dir(event)
+
+  console.dir(event);
   var safe = safesearch.sanitize(this[0].value);
   console.log(safe);
 
@@ -46,7 +49,8 @@ searchImages.addEventListener('submit', function(event){
   return false;
 });
 
-
-
+module.exports = {
+  flickrKey: flickrKey
+}
 
 

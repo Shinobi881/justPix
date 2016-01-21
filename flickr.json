@@ -1,0 +1,9 @@
+{
+"flickr": {
+    "name": "Flickr",
+    "rootUrl": "https://api.flickr.com/services/rest/",
+    "method": "?method=flickr.photos.search&",
+    "key": "api_key=48c418b2afe25a1aae3a9110d57e843d&tags=" ,
+    "options": "&safe_search&format=json&per_page=100&nojsoncallback=?"
+  }
+}

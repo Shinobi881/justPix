@@ -22,14 +22,19 @@ function flickrImages(searchTag) {
   var imageArray = null;
   
   
-  fetch.flickr.get(searchTag, imageContainer, processAPI);
+  fetch.apiKeys.get('../flickr.json')
+  .then(function(data) {     
+    // imageArray = data;
+    fetch.flickr.get(data.flickr, searchTag)(imageContainer, processAPI);
+  }, function(error) {
+    document.write('There was an error.......', error);
+  })
+  .then(function() {
+    // setTimeout(function(){ 
 
+    // }, 5000)
 
-
-
-
-
-
+  })
 
 
 

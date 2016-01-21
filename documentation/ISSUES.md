@@ -16,10 +16,10 @@
   [x] - Display image title
 [x] - Close Overlay
 
-[] - Spinner
+[x] - Spinner
 [] - Error with search
 [] - Please search again
-[] - IE11 Compatible
+[x] - IE11 Compatible
 
 ###Milestone: *User search for image tags*
   Issue: *Character escape search form*
