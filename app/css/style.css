@@ -108,7 +108,7 @@ input[type="text"]:focus {
 }
 
 #thumbContainer {
-
+  margin-left: 9%;
 }
 
 /***** Animations that only work on IE11 _of all things?!_ ****/
