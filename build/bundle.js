@@ -56,7 +56,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var landing = __webpack_require__(1);
-	var css = __webpack_require__(10);
+	var css = __webpack_require__(7);
 
 	// document.write(landing);
 
@@ -67,9 +67,9 @@
 
 	'use strict';
 
-	var images = __webpack_require__(5); 
-	var safesearch = __webpack_require__(7); 
-	var overlay = __webpack_require__(9);
+	var images = __webpack_require__(2); 
+	var safesearch = __webpack_require__(5); 
+	var overlay = __webpack_require__(6);
 
 	var flickrKey = null;
 
@@ -78,9 +78,7 @@
 	  var stickHere = document.getElementById('spinnerDiv');
 	  setTimeout(function() {
 	    document.body.removeChild(stickHere);
-
 	  }, 2000);
-	  console.log(stickHere);
 	}
 
 	// Page load event listener
@@ -122,64 +120,13 @@
 
 
 /***/ },
-/* 2 */,
-/* 3 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	// Flickr API fetch for async purposes
-	function flickrData(data) {
-	  console.log('Flickrdata', data);
-	  return JSON.parse(data);
-	}
-
-	// Fetch class for flickr API (IE11 compatible)
-	function FlickrFetch() {
-	  var req = new XMLHttpRequest;
-	  
-	  this.get = function(source, searchTag) {
-	    var reqUrl = source.rootUrl + source.method +
-	    source.key + searchTag + source.options;
-
-	    return function (container, callback) {
-	      req.open('GET', reqUrl, true);
-	      req.onload = function() {
-	        if (this.status >= 200 && this.status < 400) {
-	          console.log('API call working');
-	          // Success!
-	          callback(flickrData(this.response).photos.photo, container);
-	        } else {
-	          document.write('We\'re experiencing technical diffculties. Please try again later.');
-	        }
-	      };
-	      req.onerror = function() {
-	        console.log('Request error');
-	      };
-	      req.send();
-	    };
-	  };
-	}
-
-	var flickr = new FlickrFetch();
-
-	module.exports = {
-	  flickr: flickr,
-	  // otherAPI: API
-	};
-
-	// console.log(window.navigator.vendor);
-
-
-/***/ },
-/* 4 */,
-/* 5 */
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var fetch = __webpack_require__(3);
-	var el = __webpack_require__(6);
+	var el = __webpack_require__(4);
 
 
 	// Callback to process the API data and turn it into elements
@@ -205,8 +152,6 @@
 	  apiData.onload = function() {
 	    if (this.status >= 200 && this.status < 400) {
 	      console.log('API call working');
-	      // Success!
-	      console.log(this.response);
 	      fetch.flickr.get(JSON.parse(this.response).flickr, searchTag)(imageContainer, processAPIData);
 	    } else {
 	      document.write('We\'re experiencing technical diffculties. Please try again later.');
@@ -224,7 +169,54 @@
 
 
 /***/ },
-/* 6 */
+/* 3 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	// Flickr API fetch for async purposes
+	function flickrData(data) {
+	  return JSON.parse(data);
+	}
+
+	// Fetch class for flickr API (IE11 compatible)
+	function FlickrFetch() {
+	  var req = new XMLHttpRequest;
+	  
+	  this.get = function(source, searchTag) {
+	    var reqUrl = source.rootUrl + source.method +
+	    source.key + searchTag + source.options;
+
+	    return function (container, callback) {
+	      req.open('GET', reqUrl, true);
+	      req.onload = function() {
+	        if (this.status >= 200 && this.status < 400) {
+	          // Success!
+	          callback(flickrData(this.response).photos.photo, container);
+	        } else {
+	          document.write('We\'re experiencing technical diffculties. Please try again later.');
+	        }
+	      };
+	      req.onerror = function() {
+	        console.log('Request error');
+	      };
+	      req.send();
+	    };
+	  };
+	}
+
+	var flickr = new FlickrFetch();
+
+	module.exports = {
+	  flickr: flickr,
+	  // otherAPI: API
+	};
+
+	// console.log(window.navigator.vendor);
+
+
+/***/ },
+/* 4 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -261,7 +253,6 @@
 	  
 	  overlayLink.setAttribute('href', '#overlay');
 	  overlayLink.classList.add(id);
-	  overlayLink.classList.add('fadeIn');
 	  overlayLink.appendChild(imageElement);
 	  
 	  overlayLink.addEventListener('click', function(event) {
@@ -309,7 +300,7 @@
 	};
 
 /***/ },
-/* 7 */
+/* 5 */
 /***/ function(module, exports) {
 
 	var SURROGATE_PAIR_REGEXP = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
@@ -348,8 +339,7 @@
 	*/
 
 /***/ },
-/* 8 */,
-/* 9 */
+/* 6 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -441,16 +431,16 @@
 	};
 
 /***/ },
-/* 10 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(11);
+	var content = __webpack_require__(8);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(13)(content, {});
+	var update = __webpack_require__(10)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -467,21 +457,21 @@
 	}
 
 /***/ },
-/* 11 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(12)();
+	exports = module.exports = __webpack_require__(9)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "body {\n  margin: 5%;\n  padding: 0;\n}\n\n.overlayDiv {\n  display: inline-block;\n  position: relative;\n  max-height: 300px;\n  max-width: 300px;\n  overflow: auto;\n}\n\n#search {\n  z-index: 500;\n}\n.thumb {\n  height: 200px;\n  width: 200px;\n  /*overflow: auto;*/\n  /*border-width: 10px;*/\n  /*border-color: gray;*/\n\n\n}\n\n.thumb:hover {\n  /*opacity: 0.5;*/\n  /*transform: scale3d(2, 3, 0);\n  transform-origin: center;*/\n  /*border-color: #9C0505 !important;\n  box-shadow: 1px 1px 3px 2px #9C0505, 0px 0px 20px #9C0505 !important;*/\n\n  -webkit-transform: translate3d(-3px, -3px, 5px);\n  /*src: url('../../includes/fonts/chunk-webfont.svg') format('svg');*/\n  -webkit-font-smoothing: antialiased;\n  font-weight: bold;\n  box-shadow: 2px 2px 10px 0px #9C0505, 4px 4px 9px 0px #000000  ;\n  transition-duration: 0.5s;\n  -webkit-transition-property: transform;\n}\n#thumbContainer #thumbHeader {\n  background-color: purple;\n}\n\n\n@keyframes fadeIn {\n  from {\n    opacity: 0;\n  }\n\n  to {\n    opacity: 1;\n  }\n}\n\n.fadeIn {\n  \n\n}\n\n.thumbcontainer {\n  /*margin: auto;\n  width: 80%;\n  height:auto;\n  border: 3px solid #73AD21;\n  padding: 10px;*/\n  display: inline-block;\n  opacity:0;\n  -moz-transition: opacity 5s; /* Firefox 4 */\n  -webkit-transition: opacity 5s; /* Safari and Chrome */\n  -o-transition: opacity 5s;\n  transition: opacity 5s;\n\n}\n/*/////////////////////////////////*/\n.spinner {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    width: 120px;\n    height: 120px;\n    margin:-60px 0 0 -60px;\n    -webkit-animation:spin 4s linear infinite;\n    -moz-animation:spin 4s linear infinite;\n    animation:spin 4s linear infinite;\n}\n@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }\n@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }\n@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }\n\n\n/**{margin:0;padding:0;}*/\n#overlay {\n    height: 80%;\n    width: 40%;\n    margin: 5%;\n    background:white;\n    background-image: url('http://www.tabletwallpapers.org/download/city-wallpaper_800x800.jpg');\n    background-repeat: no-repeat;\n    background-size: 100%;\n    position: fixed;\n    color:black;\n    padding:10px;\n    position:absolute;\n    top:6%;\n    left:25%;\n    z-index:1000;\n    display:none;\n    /* CSS 3 */\n    -webkit-border-radius:10px;\n    -moz-border-radius:10px;\n    -o-border-radius:10px;\n    border-radius:10px;\n    transition: opacity 400ms;\n\n}\n\n.show {\n  transition: opacity 1000ms;\n}\n\n#lightboxImage {\n  margin-left: %;\n  margin-right: 10%;\n}\n/*Apply styles to overlay picture*/\n#overlay .overlayPic {\n  position:absolute;\n  margin:auto;\n  top:0;\n  bottom:0;\n  left:0;\n  right:0;\n}\n\n#mask{ /* create are mask */\n    position:fixed;\n    top:0;\n    left:0;\n    background:rgba(0,0,0,0.6);\n    z-index:500;\n    width:100%;\n    height:100%;\n    display:none;\n    transition-property: opacity, left, top, height;\n    transition-duration: 3s, 5s;\n}\n/* use :target to look for a link to the overlay then we find are mask */\n#overlay:target, #overlay:target + #mask{\n    display:block;\n    opacity:1;\n    transition: all 0.5s ease-out;\n    transition-property: opacity, left, top, height;\n    transition-duration: 3s, 5s;\n}\n.close{ /* to make a nice looking pure CSS3 close button */\n    display:block;\n    position:absolute;\n    top:-30px;\n    right:-30px;\n    background:transparent;\n    color:white;\n    height:60px;\n    width:60px;\n    line-height:60px;\n    font-size:35px;\n    text-decoration:none;\n    text-align:center;\n    font-weight:bold;\n    -webkit-border-radius:40px;\n    -moz-border-radius:40px;\n    -o-border-radius:40px;\n    border-radius:40px;\n}\n", ""]);
+	exports.push([module.id, "body {\n  margin: 5%;\n  padding: 0;\n}\n\n\n.overlayDiv {\n  display: inline-block;\n  position: relative;\n  max-height: 300px;\n  max-width: 300px;\n  overflow: auto;\n}\n\n#search {\n  \n\n}\n\n\n\n a .thumb {\n  height: 200px;\n  width: 200px;\n  /*overflow: auto;*/\n  /*border-width: 10px;*/\n  /*border-color: gray;*/\n  animation: fadein 5s !important;\n  -moz-animation: fadein 5s; /* Firefox */\n  -webkit-animation: fadein 5s !important; /* Safari and Chrome */\n  -o-animation: fadein 5s; \n\n}\n\n.thumb:hover {\n  /*opacity: 0.5;*/\n  /*transform: scale3d(2, 3, 0);\n  transform-origin: center;*/\n  /*border-color: #9C0505 !important;\n  box-shadow: 1px 1px 3px 2px #9C0505, 0px 0px 20px #9C0505 !important;*/\n\n  font-weight: bold;\n  box-shadow: 2px 2px 10px 0px #9C0505, 4px 4px 9px 0px #000000  ;\n  transition-duration: 0.5s;\n  transform: translate3d(-3px, -3px, 5px);\n  -ms-transform: translate3d(-3px, -3px, 5px);\n  \n  -moz-transform: translate3d(-3px, -3px, 5px);\n  -webkit-font-smoothing: antialiased;\n  -webkit-transition-property: transform;\n  -webkit-transition-duration: 0.5s;\n  \n  -webkit-trannsform: translate3d(-3px, -3px, 5px);\n  -webkit-font-smoothing: antialiased;\n  -webkit-transition-property: transform;\n  -webkit-transition-duration: 0.5s;\n}\n\n\n\n.thumbcontainer {\n  /*margin: auto;\n  width: 80%;\n  height:auto;\n  border: 3px solid #73AD21;\n  padding: 10px;*/\n  display: inline-block;\n  opacity: 0;\n  /*animation: fadein 5s;*/\n  /*-moz-animation: fadein 5s; /* Firefox */\n  /*-webkit-animation: fadein 5s; /* Safari and Chrome */\n  /*-o-animation: fadein 5s; */\n\n\n}\n\n@keyframes fadeIn {\n  from {opacity: 0;}\n  to {opacity: 1;}\n}\n\n-moz-@keyframes fadeIn {\n  from {opacity: 0;}\n  to {opacity: 1;}\n}\n\n-webkit-@keyframes fadeIn {\n  from {opacity: 0;}\n  to {opacity: 1;}\n}\n\n-ms-@keyframes fadeIn {\n  from {opacity: 0;}\n  to {opacity: 1;}\n}\n/*/////////////////////////////////*/\n.spinner {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    width: 200px;\n    height: 200px;\n    margin:-60px 0 0 -60px;\n    opacity: 0.7;\n    -webkit-animation:spin 4s linear infinite;\n    -moz-animation:spin 4s linear infinite;\n    animation:spin 4s linear infinite;\n}\n@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }\n@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }\n@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }\n\n\n*{margin:0;padding:0;}\n#overlay {\n    height: 80%;\n    width: 40%;\n    margin: 5%;\n    background:white;\n    background-image: url('http://www.tabletwallpapers.org/download/city-wallpaper_800x800.jpg');\n    background-repeat: no-repeat;\n    background-size: 100%;\n    position: fixed;\n    color:black;\n    padding:10px;\n    position:absolute;\n    top:6%;\n    left:25%;\n    z-index:1000;\n    display:none;\n    -webkit-border-radius:10px;\n    -moz-border-radius:10px;\n    -o-border-radius:10px;\n    border-radius:10px;\n    transition: opacity 400ms;\n}\n\n.show {\n  transition: opacity 1000ms;\n}\n\n#lightboxImage {\n  margin-left: %;\n  margin-right: 10%;\n}\n\n\n/************* Overlay Properties **************/\n/*Apply styles to overlay picture*/\n#overlay .overlayPic {\n  position: absolute;\n  margin: auto;\n  max-height: auto;\n  max-width: 100%;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n}\n\n#mask{ /* create are mask */\n    position: fixed;\n    top: 0;\n    left: 0;\n    background: rgba(0,0,0,0.6);\n    z-index: 500;\n    width: 100%;\n    height: 100%;\n    display: none;\n    transition-property: opacity, left, top, height;\n    transition-duration: 3s, 5s;\n}\n/* use :target to look for a link to the overlay then we find are mask */\n#overlay:target, #overlay:target + #mask{\n    display: block;\n    opacity: 1;\n    transition: all 0.5s ease-out;\n    transition-property: opacity, left, top, height;\n    transition-duration: 3s, 5s;\n}\n.close{ /* overlay close button close button */\n    display: block;\n    position: absolute;\n    top: -10px;\n    right: -10px;\n    background: transparent;\n    color: gray;\n    height: 60px;\n    width: 60px;\n    line-height: 60px;\n    font-size: 35px;\n    text-decoration: none;\n    text-align: center;\n    font-weight: bold;\n    -webkit-border-radius: 40px;\n    -moz-border-radius: 40px;\n    -o-border-radius: 40px;\n    border-radius: 40px;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 12 */
+/* 9 */
 /***/ function(module, exports) {
 
 	/*
@@ -537,7 +527,7 @@
 
 
 /***/ },
-/* 13 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

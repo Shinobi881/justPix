@@ -2,7 +2,6 @@
 
 // Flickr API fetch for async purposes
 function flickrData(data) {
-  console.log('Flickrdata', data);
   return JSON.parse(data);
 }
 
@@ -18,7 +17,6 @@ function FlickrFetch() {
       req.open('GET', reqUrl, true);
       req.onload = function() {
         if (this.status >= 200 && this.status < 400) {
-          console.log('API call working');
           // Success!
           callback(flickrData(this.response).photos.photo, container);
         } else {

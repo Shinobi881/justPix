@@ -27,8 +27,6 @@ function flickrImages(searchTag) {
   apiData.onload = function() {
     if (this.status >= 200 && this.status < 400) {
       console.log('API call working');
-      // Success!
-      console.log(this.response);
       fetch.flickr.get(JSON.parse(this.response).flickr, searchTag)(imageContainer, processAPIData);
     } else {
       document.write('We\'re experiencing technical diffculties. Please try again later.');

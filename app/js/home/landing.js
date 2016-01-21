@@ -11,9 +11,7 @@ function spinner() {
   var stickHere = document.getElementById('spinnerDiv');
   setTimeout(function() {
     document.body.removeChild(stickHere);
-
   }, 2000);
-  console.log(stickHere);
 }
 
 // Page load event listener
